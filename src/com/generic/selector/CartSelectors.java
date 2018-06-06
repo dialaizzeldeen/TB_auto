@@ -11,7 +11,7 @@ public class CartSelectors
 	public static final String continueShopping = "btn--continue-shopping";
 	public static final String OrderSubTotal = "css,.subtotals>.value";
 	public static final String cartOrderTotal = "estimatedTotalPrice";
-	
+	public static final String productPromotionMsg = "css,.bag-item-text.item-red-text>span";
 	public static final String unitPrice = "css,.cart-item-container>.item-price";
 	public static final String productSubtotal = "css,.total-price";
 	
