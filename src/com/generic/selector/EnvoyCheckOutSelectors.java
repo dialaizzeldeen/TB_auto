@@ -50,13 +50,14 @@ public class EnvoyCheckOutSelectors
 	public static final String paypalLogin = "btnLogin";
 	public static final String paypalPayNow = "confirmButtonTop";
 	
-	public static final String placeOrder ="parentiframe,#submit-order-btn-right";
-	public static final String orderID ="orderId";
-	public static final String totalSalePrice = "text-right ng-binding ng-scope";
+
+	public static final String totalSalePrice = "css,.text-right.ng-binding.ng-scope";
 	public static final String shippingCost  = "text-success ng-binding ng-scope";
 	public static final String duties = "css,#duties>.text-right.ng-scope>span";
 	public static final String taxes = "css,#taxes>.text-right.ng-scope>span";
-	public static final String totalAmount = "css,.total-amount";
+	public static final String totalAmount = "parentiframe,.total-amount";
+	public static final String placeOrder ="css,#submit-order-btn-right";
+	public static final String orderID ="orderId";
 	
 	////////// Order Confirmation
 	public static final String orderReviewHeader = "css,#review-page>header>div>div>h1";

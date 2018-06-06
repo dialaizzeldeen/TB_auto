@@ -26,6 +26,7 @@ import com.generic.setup.LoggingMsg;
 import com.generic.setup.PagesURLs;
 import com.generic.setup.SelTestCase;
 import com.generic.setup.SheetVariables;
+import com.generic.tests.checkout.Base_checkoutUS;
 import com.generic.util.ReportUtil;
 import com.generic.util.SASLogger;
 import com.generic.util.dataProviderUtils;
@@ -36,13 +37,12 @@ public class OrderHistoryValidation extends SelTestCase {
 	private static LinkedHashMap<String, Object> invintory;
 	private static LinkedHashMap<String, Object> users;
 	private static LinkedHashMap<String, Object> paymentCards = null;
-
 	// user types
 	public static final String guestUser = "guest";
 	public static final String loggedInUser = "loggedin";
 	String Pemail = "";
 	// used sheet in test
-	public static final String testDataSheet = SheetVariables.orderSheet;
+	public static final String testDataSheet = SheetVariables.orderHistorySheet;
 	private static ThreadLocal<String> products = new ThreadLocal<String>();
 	private static XmlTest testObject;
 	private static ThreadLocal<SASLogger> Testlogs = new ThreadLocal<SASLogger>();
@@ -69,39 +69,49 @@ public class OrderHistoryValidation extends SelTestCase {
 		return data;
 	}
 
-	@SuppressWarnings("unchecked") // avoid warning from linked hashmap
+	@SuppressWarnings({ "unchecked", "static-access" }) // avoid warning from linked hashmap
 	@Test(dataProvider = "ordersHistory")
-	public void verifyOrderHistory(String caseId, String runTest, String desc, String email, String products,
-			String shippingMethod, String payment, String shippingAddress, String billingAddress, String url,
-			String orderNumToBeClicked) throws Exception {
+	public void verifyOrderHistory(String caseId, String runTest, String desc,String proprties, String email, String products,
+			String shippingMethod, String payment, String shippingAddress, String billingAddress,
+			String coupon) throws Exception {
 		// Important to add this for logging/reporting
 		Testlogs.set(new SASLogger("ordersdetails" + getBrowserName()));
 		setTestCaseReportName("ordersdetails");
 		logCaseDetailds(MessageFormat.format(LoggingMsg.TEST_CASE_DESC, testDataSheet + "." + caseId,
 				this.getClass().getCanonicalName(), desc));
 
-		LinkedHashMap<String, Object> userdetails = (LinkedHashMap<String, Object>) users.get(email);
-		Testlogs.get().debug(email);
 		LinkedHashMap<String, Object> deliveryaddressDetails = (LinkedHashMap<String, Object>) addresses
 				.get(shippingAddress);
 		LinkedHashMap<String, Object> paymentDetails = (LinkedHashMap<String, Object>) paymentCards.get(payment);
 		LinkedHashMap<String, Object> billAddressDetails = (LinkedHashMap<String, Object>) addresses
 				.get(billingAddress);
-
-		getDriver().get(
-				"file:///C:/Users/Brain/Downloads/Order%20Details%20page/Order%20Details%20page/Order%20History.html");
-
+		
+		String url = PagesURLs.getOrderHistoryPage();
+	
 		try {
-
+			
+			Base_checkoutUS checkoutTest = new Base_checkoutUS();
+			checkoutTest.initialSetUp(testObject);
+			checkoutTest.checkOutUSBaseTest(caseId, runTest, desc, proprties, products, shippingMethod, payment, shippingAddress, billingAddress, coupon, email);
+			String OCOrderId = CheckOut.orderConfirmation.getOrderId();
+			String OCOrderItemTotal = CheckOut.orderConfirmation.getSubTotal();
+			String OCOrderShipping = CheckOut.orderConfirmation.getShippingCost();
+			String OCOrderTax = CheckOut.orderConfirmation.getOrderTax();
+			String OCOrderTotal = CheckOut.orderConfirmation.getOrderTotal();
+			String OCDeliveryAddress = CheckOut.orderConfirmation.getShippingAddrerss();
+			String OCDeliveryMethod = CheckOut.orderConfirmation.getDeliveryMethod();
+			String OCPaymentMethod = CheckOut.orderConfirmation.getPaymentMethod();
+			String OCBillingAddress =  CheckOut.orderConfirmation.getBillingAddrerss();
+			logs.debug(OCOrderId + OCOrderItemTotal + OCOrderShipping + OCOrderTax + OCOrderTotal+ OCDeliveryAddress + OCDeliveryMethod + OCPaymentMethod + OCBillingAddress);
+			
+			// navigate to order history page
+			getDriver().get(url);
 			String OrderNumber = OrderHistory.getOrderNumber();
 			String OrderStatus = OrderHistory.getOrderStatus();
 			String OrderTotal = OrderHistory.getOrderTotal();
 
 			// Click on first order on order history page
-			// OrderHistory.clickOrder(); instead use this
-			getDriver().get(
-					"file:///C:/Users/Brain/Downloads/Order%20Details%20page/Order%20Details%20page/Order%20History%20-%20Order%20Details%20%20%20TommyBahama.com.html");
-
+			 OrderHistory.clickOrder();// instead use this
 			String DetailsOrderNumber = OrderDetails.getOrderNumber();
 			String DetailsOrderStatus = OrderDetails.getOrderStatus();
 			String DetailsOrderTotal = OrderDetails.getOrderTotal();

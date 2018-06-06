@@ -76,7 +76,7 @@ public class OrderDetailsValidation extends SelTestCase {
 
 	@SuppressWarnings("unchecked") // avoid warning from linked hashmap
 	@Test(dataProvider = "ordersDetails")
-	public void verifyOrdeDetails(String caseId, String runTest, String desc, String email,String products, String shippingMethod, String payment, String shippingAddress, String billingAddress, String orderNumToBeClicked) throws Exception {
+	public void verifyOrdeDetails(String caseId, String runTest, String desc,String proprties, String email,String products, String shippingMethod, String payment, String shippingAddress, String billingAddress, String orderNumToBeClicked) throws Exception {
 
 		Testlogs.set(new SASLogger("ordersDetails" + getBrowserName()));
 		setTestCaseReportName("ordersDetails Case");

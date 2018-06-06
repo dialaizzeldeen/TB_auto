@@ -2,15 +2,9 @@ package com.generic.page;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
+import java.util.NoSuchElementException;
 import com.generic.selector.CartSelectors;
-import com.generic.selector.CheckOutSelectors;
 import com.generic.setup.SelTestCase;
 import com.generic.setup.ExceptionMsg;
 import com.generic.setup.LoggingMsg;
@@ -40,6 +34,21 @@ public class Cart extends SelTestCase {
 		}
 		getCurrentFunctionName(false);
 		return isCartPageOpened;
+	}
+	
+	public static boolean checkProductPromotionMessage() throws Exception {
+		getCurrentFunctionName(true);
+		List<String> subStrArr = new ArrayList<String>();
+		subStrArr.add(CartSelectors.productPromotionMsg);
+		boolean isDisplayed = false;
+		try {
+			isDisplayed = SelectorUtil.isDisplayed(subStrArr);
+			logs.debug("A product-level promotion is applied to this order");
+		} catch (NoSuchElementException e) {
+			logs.debug("This order does not contain any product-level promotion");
+		}
+		getCurrentFunctionName(false);
+		return isDisplayed;
 	}
 	
 	public static String getCartId() throws Exception {
@@ -451,11 +460,6 @@ public class Cart extends SelTestCase {
 		String totals = SelectorUtil.textValue.get();
 		getCurrentFunctionName(false);
 		return totals;
-	}
-
-	public static void clickMen() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
