@@ -126,7 +126,6 @@ public class AccountsSetupUS extends SelTestCase {
 			LinkedHashMap<String, Object> paymentDetails = (LinkedHashMap<String, Object>) paymentCards.get(payment);
 			LinkedHashMap<String, Object> billAddressDetails = (LinkedHashMap<String, Object>) addresses
 					.get(billingAddress);
-
 			CheckOut.paymentInformation.fillAndclickNext(
 					(String) paymentDetails.get(CheckOut.paymentInformation.keys.name),
 					(String) paymentDetails.get(CheckOut.paymentInformation.keys.number),

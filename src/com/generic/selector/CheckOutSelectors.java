@@ -12,6 +12,7 @@ public class CheckOutSelectors
 	
 	//Shipping Address
 	
+	public static final String currentPage = "css,#checkout-progress>.current";
 	public static final String addAdress = "add-address";
 	public static final String countery = "address-country";
 	public static final String state = "address-region";
@@ -59,7 +60,6 @@ public class CheckOutSelectors
 	public static final String storeNumber = "storeNumber";
 	
 	//Gift Services
-	//Gift Services
 	public static final String giftOptionTrue = "gift_option_true";
 	public static final String giftSelectOption = "gift-select-option";
 	public static final String giftContainerTo1 = "container-to-1";
@@ -72,7 +72,7 @@ public class CheckOutSelectors
 	public static final String orderTaxGiftOption = "totaltax";
 	public static final String giftServices = "css,.total-item>span";
 	public static final String totalItem = "css,.total-item>span";
-
+	public static final String totalItemsPromotion = "css,.total-item.promotion>span";
 	//Payment info
 	public static final String cardtype = "card_cardType";
 	public static final String cardHolder = "name-on-card";
@@ -113,6 +113,7 @@ public class CheckOutSelectors
 	public static final String orderTaxOrderSumary = "totaltax";
 	
 	//Order confirmation
+	public static final String orderConfirmationMessage = "confirm-message";
 	public static final String orderId = "order-number";
 	public static final String orderConfirmationTotal = "totalcost";
 	public static final String orderConfirmationSubtotal = "css,.subtotal";

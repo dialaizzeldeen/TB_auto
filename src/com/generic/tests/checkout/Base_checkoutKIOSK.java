@@ -242,7 +242,9 @@ public class Base_checkoutKIOSK extends SelTestCase {
 				
 				CheckOut.paymentInformation.pickFirstpaymentsaved(payment);
 				CheckOut.paymentInformation.typeCVC((String) paymentDetails.get(CheckOut.paymentInformation.keys.CVCC));
-				CheckOut.paymentInformation.clickNext();	
+				CheckOut.paymentInformation.clickNext();
+				
+				
 			} else {
 
 				// do not save address if scenario is guest user
@@ -251,7 +253,6 @@ public class Base_checkoutKIOSK extends SelTestCase {
 						.get(billingAddress);
 
 				if (saveBilling) {
-
 					CheckOut.paymentInformation.fillAndclickNext(
 							(String) paymentDetails.get(CheckOut.paymentInformation.keys.name),
 							(String) paymentDetails.get(CheckOut.paymentInformation.keys.number),
@@ -267,7 +268,6 @@ public class Base_checkoutKIOSK extends SelTestCase {
 							(String) billAddressDetails.get(CheckOut.shippingAddress.keys.state),
 							(String) billAddressDetails.get(CheckOut.shippingAddress.keys.postal));
 				} else {
-
 					CheckOut.paymentInformation.fillAndclickNext(
 							(String) paymentDetails.get(CheckOut.paymentInformation.keys.name),
 							(String) paymentDetails.get(CheckOut.paymentInformation.keys.number),

@@ -11,6 +11,7 @@ import org.testng.xml.XmlTest;
 import java.util.LinkedHashMap;
 
 import com.generic.page.PDP;
+import com.generic.page.EnvoyCheckOut.orderDetails;
 import com.generic.page.Cart;
 import com.generic.page.CheckOut;
 import com.generic.page.EnvoyCheckOut;
@@ -70,8 +71,11 @@ public class Base_EnvoyCheckout extends SelTestCase {
 				.get(shippingAddress);	
 		String Pemail;
 		String cartID;
-		String orderTotal;
 		String orderSubtotal;
+		String shippingCost;
+		String duties;
+		String taxes;
+		String orderTotal;
 		String country = (String) addressDetails.get(CheckOut.shippingAddress.keys.countery);
 		Pemail = getSubMailAccount(email);
 		
@@ -87,8 +91,7 @@ public class Base_EnvoyCheckout extends SelTestCase {
 			}
 
 			//Cart.getNumberOfproducts();
-			orderSubtotal = Cart.getOrderSubTotal();
-			orderTotal = Cart.getOrderTotal();
+			orderSubtotal = Cart.getOrderSubTotal().replace("GBP", "");
 			cartID = Cart.getCartId();
 			Testlogs.get().debug("Cart ID: " + cartID);
 			Cart.clickCheckout();
@@ -104,6 +107,13 @@ public class Base_EnvoyCheckout extends SelTestCase {
 						(String) addressDetails.get(CheckOut.shippingAddress.keys.postal),
 						(String) addressDetails.get(CheckOut.shippingAddress.keys.phone), "");
 	//			EnvoyCheckOut.deliveryMethod.selectDHLExpressMethod("");
+				
+				String newOrderSubtotal = EnvoyCheckOut.orderDetails.getTotalSalePrice().replace("£", "");
+				shippingCost = EnvoyCheckOut.orderDetails.getShippingCost();
+				duties = EnvoyCheckOut.orderDetails.getDuties();
+				taxes = EnvoyCheckOut.orderDetails.getTaxes();
+				sassert().assertEquals(newOrderSubtotal, orderSubtotal, "<font color=#f442cb>Order subtotal in delivry section is not as expected. Expectd: " + orderSubtotal + "Actual: " + newOrderSubtotal+"</font>");
+
 				EnvoyCheckOut.deliveryMethod.clickContinue();
 				
 				LinkedHashMap<String, Object> billAddressDetails = (LinkedHashMap<String, Object>) addresses
@@ -111,7 +121,7 @@ public class Base_EnvoyCheckout extends SelTestCase {
 				LinkedHashMap<String, Object> paymentDetails = (LinkedHashMap<String, Object>) paymentCards
 						.get(payment);
 				
-				EnvoyCheckOut.payment.fillAndclickNext(
+				EnvoyCheckOut.payment.fillPaymentDetails(
 						billingAddress.equalsIgnoreCase(shippingAddress),
 						Pemail,
 						(String) billAddressDetails.get(EnvoyCheckOut.shippingAddress.keys.firstName),
@@ -125,6 +135,29 @@ public class Base_EnvoyCheckout extends SelTestCase {
 						(String) paymentDetails.get(CheckOut.paymentInformation.keys.number),
 						expireDate,
 						(String) paymentDetails.get(CheckOut.paymentInformation.keys.CVCC));
+				
+				String newOrderTotal = EnvoyCheckOut.orderDetails.getTotalAmount();
+				newOrderSubtotal = EnvoyCheckOut.orderDetails.getTotalSalePrice();
+				String newShippingCost = EnvoyCheckOut.orderDetails.getShippingCost();
+				String newDuties = EnvoyCheckOut.orderDetails.getDuties();
+				String newTaxes = EnvoyCheckOut.orderDetails.getTaxes();
+			
+			
+				if (billingAddress.equalsIgnoreCase(shippingAddress))
+				{
+				sassert().assertTrue(newOrderSubtotal.contains(orderSubtotal), "<font color=#f442cb>Order subtotal in Payment section is not as expected. Expectd: " + orderSubtotal + "Actual: " + newOrderSubtotal+"</font>");
+				sassert().assertEquals(newDuties, duties, "<font color=#f442cb>Order Duties in Payment section is not as expected. Expectd: " + duties + "Actual: " + newDuties+"</font>");
+				sassert().assertEquals(newShippingCost, shippingCost, "<font color=#f442cb>Order Shipping in Payment section is not as expected. Expectd: " + shippingCost + "Actual: " + newShippingCost+"</font>");
+				
+				}
+				else {
+					String billCountry = (String) billAddressDetails.get(EnvoyCheckOut.shippingAddress.keys.country);
+					if(billCountry.equals("UNITED STATES")){
+						sassert().assertTrue(newOrderTotal.contains("$"), "<font color=#f442cb>Order subtotal should bbe with '$' currency. Actual: " + newOrderTotal+"</font>");
+					}
+				}
+				
+				EnvoyCheckOut.orderDetails.clickPlaceOrder();
 				String orderID = EnvoyCheckOut.orderDetails.getOrderID();
 				Testlogs.get().debug("Order ID: " + orderID);
 			sassert().assertAll();

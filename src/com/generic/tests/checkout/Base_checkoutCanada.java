@@ -221,13 +221,14 @@ public class Base_checkoutCanada extends SelTestCase {
 			
 			LinkedHashMap<String, Object> paymentDetails = (LinkedHashMap<String, Object>) paymentCards
 					.get(payment);
-
+			
 			if (proprties.contains(CheckOut.paymentInformation.keys.isSavedPayement) && !proprties.contains(freshUser)
 					&& !proprties.contains(guestUser)) {
 				
 				CheckOut.paymentInformation.pickFirstpaymentsaved(payment);
 				CheckOut.paymentInformation.typeCVC((String) paymentDetails.get(CheckOut.paymentInformation.keys.CVCC));
-				CheckOut.paymentInformation.clickNext();			
+				CheckOut.paymentInformation.clickNext();
+				
 				
 			} else {
 
@@ -254,7 +255,6 @@ public class Base_checkoutCanada extends SelTestCase {
 							(String) billAddressDetails.get(CheckOut.shippingAddress.keys.state),
 							(String) billAddressDetails.get(CheckOut.shippingAddress.keys.postal));
 				} else {
-
 					CheckOut.paymentInformation.fillAndclickNext(
 							(String) paymentDetails.get(CheckOut.paymentInformation.keys.name),
 							(String) paymentDetails.get(CheckOut.paymentInformation.keys.number),

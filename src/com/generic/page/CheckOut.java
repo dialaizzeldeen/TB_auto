@@ -11,15 +11,19 @@ import com.generic.selector.MyAccount_Selectors;
 import com.generic.selector.PDPSelectors;
 import com.generic.selector.PLPSelectors;
 import com.generic.selector.RegistrationSelectors;
+import com.generic.selector.MyAccount_Selectors;
+import com.generic.selector.PDPSelectors;
+import com.generic.selector.RegistrationSelectors;
 import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
 import com.generic.util.SelectorUtil;
+
 public class CheckOut extends SelTestCase {
 
 	public static class keys {
 		public static final String caseId = "caseId";
-		public static final String employeeCustomer = "employee customer";
 		public static final String handlingFee = "handling-fee";
+		public static final String employeeCustomer = "employee customer";
 	}
 
 	public static class guestCheckout {
@@ -795,16 +799,6 @@ public class CheckOut extends SelTestCase {
 			getCurrentFunctionName(false);
 		}
 		
-		public static void clicGiftOptionTrue() throws Exception {
-			getCurrentFunctionName(true);
-			List<String> subStrArr = new ArrayList<String>();
-			List<String> valuesArr = new ArrayList<String>();
-			subStrArr.add(CheckOutSelectors.continueCheckout);
-			valuesArr.add("");
-			SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
-			getCurrentFunctionName(false);
-		}
-		
 		public static boolean checkPromotionMessage() throws Exception {
 			getCurrentFunctionName(true);
 			List<String> subStrArr = new ArrayList<String>();
@@ -843,7 +837,6 @@ public class CheckOut extends SelTestCase {
 			getCurrentFunctionName(false);
 			return SelectorUtil.textValue.get();
 		}
-		
 		public static String getHandlingFeeTotal(Boolean IsPromotionApplied) throws Exception {
 			getCurrentFunctionName(true);
 			List<String> subStrArr = new ArrayList<String>();
@@ -860,7 +853,6 @@ public class CheckOut extends SelTestCase {
 			getCurrentFunctionName(false);
 			return SelectorUtil.textValue.get();
 		}
-
 		public static String getOrderTax() throws Exception {
 			getCurrentFunctionName(true);
 			List<String> subStrArr = new ArrayList<String>();
@@ -933,7 +925,6 @@ public class CheckOut extends SelTestCase {
 	} //kiosk Details 
 	
 	public static class giftServices {
-
 		public static class keys {
 			public static final String addGiftServices= "add-gift-services";
 
@@ -947,7 +938,6 @@ public class CheckOut extends SelTestCase {
 			SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 			getCurrentFunctionName(false);
 		}
-
 		public static void selectGiftSelectOption(String giftSelectOption) throws Exception {
 			getCurrentFunctionName(true);
 			List<String> subStrArr = new ArrayList<String>();
