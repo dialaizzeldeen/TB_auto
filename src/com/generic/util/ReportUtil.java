@@ -357,6 +357,13 @@ public final class ReportUtil extends SelTestCase {
     }
 
 	public static void copyReportToC(String logDir, String dest) throws IOException {
+		File PublisgDir = new File(dest);
+		boolean exists = PublisgDir.exists();
+		if (!exists)
+		{
+			new File(dest).mkdir();
+			
+		}
 		FileUtils.cleanDirectory(new File(dest)); 
 		FileUtils.copyDirectory(new File(logDir), new File(dest));
 		
