@@ -136,6 +136,7 @@ public class Base_checkoutUS extends SelTestCase {
 	        	handlingFee = Cart.getHandlingFeeTotal();
 			}
 			Cart.clickCheckout();
+			Boolean IsProductPromotionApplied = Cart.checkProductPromotionMessage();
 			if (proprties.contains(loggedDuringChcOt)) {
 				LinkedHashMap<String, Object> userdetails = (LinkedHashMap<String, Object>) users.get(email);
 				Testlogs.get().debug("Login during checkout with: "+Pemail);
@@ -215,7 +216,7 @@ public class Base_checkoutUS extends SelTestCase {
 			orderShipping = CheckOut.shippingMethod.getOrderShipping();
 			orderTax = CheckOut.shippingMethod.getOrderTax();
 			orderTotal = CheckOut.shippingMethod.getOrderTotal();
-			Boolean IsPromotionApplied = CheckOut.shippingMethod.checkPromotionMessage();
+			Boolean IsShippingPromotionApplied = CheckOut.shippingMethod.checkPromotionMessage();
 			// Gift Services
 			if (proprties.contains(CheckOut.giftServices.keys.addGiftServices)){
 				CheckOut.giftServices.clicGiftOptionTrue();
@@ -327,6 +328,7 @@ public class Base_checkoutUS extends SelTestCase {
 			CheckOut.reviewInformation.placeOrder();
 
 			// Validate the order total in order confirmation page
+			sassert().assertTrue(CheckOut.orderConfirmation.checkOrderConfirmationPage(), "<font color=#f442cb>Order cofirmation page is not displayed as expected. Current Page: " + CheckOut.shippingAddress.getCurrentPage() +"</font>");
 			actualOrderSubtotal = CheckOut.orderConfirmation.getSubTotal();
 			actualOrderShipping = CheckOut.orderConfirmation.getShippingCost();
 			actualOrderTax = CheckOut.orderConfirmation.getOrderTax();
@@ -336,11 +338,11 @@ public class Base_checkoutUS extends SelTestCase {
 			sassert().assertEquals(actualOrderTax, orderTax, "<font color=#f442cb>Order Taxes in Order Confirmation page is not as expected. Expectd: " + orderTax + "Actual: " + actualOrderTax+"</font>");
 			sassert().assertEquals(actualOrderTotal, orderTotal, "<font color=#f442cb>Order total in Order Confirmation page is not as expected. Expectd: " + orderTotal + "Actual: " + actualOrderTotal+"</font>");
 			if (proprties.contains(CheckOut.giftServices.keys.addGiftServices)){
-				String giftServices = CheckOut.orderConfirmation.getGiftServices(IsPromotionApplied);
+				String giftServices = CheckOut.orderConfirmation.getGiftServices(IsShippingPromotionApplied,IsProductPromotionApplied);
 				sassert().assertTrue(giftServices.contains("$5.00"), "<font color=#f442cb>Gift Services in Order Confirmation page is not as expected. Expectd:$5.00.Actual:" + giftServices+"</font>");
 			}
 			if (proprties.contains(CheckOut.keys.handlingFee)) {
-				String actualHandlingFee = CheckOut.shippingMethod.getHandlingFeeTotal(IsPromotionApplied);
+				String actualHandlingFee = CheckOut.shippingMethod.getHandlingFeeTotal(IsShippingPromotionApplied);
 				sassert().assertEquals(actualHandlingFee, handlingFee, "<font color=#f442cb>Order Handling Fee in delivry address page is not as expected. Expectd: " + handlingFee + "Actual: " + actualHandlingFee+"</font>");
 			}
 			orderTotal = CheckOut.orderConfirmation.getOrderTotal();

@@ -288,6 +288,7 @@ public class Base_checkoutCanada extends SelTestCase {
 			CheckOut.reviewInformation.placeOrder();
 
 			// Validate the order total in order confirmation page
+			sassert().assertTrue(CheckOut.orderConfirmation.checkOrderConfirmationPage(), "<font color=#f442cb>Order cofirmation page is not displayed as expected. Current Page: " + CheckOut.shippingAddress.getCurrentPage() +"</font>");
 			actualOrderSubtotal = CheckOut.orderConfirmation.getSubTotal();
 			actualOrderShipping = CheckOut.orderConfirmation.getShippingCost();
 			actualOrderTax = CheckOut.orderConfirmation.getOrderTax();
@@ -296,7 +297,7 @@ public class Base_checkoutCanada extends SelTestCase {
 			sassert().assertEquals(actualOrderShipping, orderShipping, "<font color=#f442cb>Order shipping in Order Confirmation page is not as expected. Expectd: " + orderShipping + "Actual: " + actualOrderShipping+"</font>");
 			sassert().assertEquals(actualOrderTax, orderTax, "<font color=#f442cb>Order Taxes in Order Confirmation page is not as expected. Expectd: " + orderTax + "Actual: " + actualOrderTax+"</font>");
 			sassert().assertEquals(actualOrderTotal, orderTotal, "<font color=#f442cb>Order total in Order Confirmation page is not as expected. Expectd: " + orderTotal + "Actual: " + actualOrderTotal+"</font>");
-			
+				
 			orderTotal = CheckOut.orderConfirmation.getOrderTotal();
 			orderShipping = CheckOut.orderConfirmation.getShippingCost();
 			orderConfirmationOrderId = CheckOut.orderConfirmation.getOrderId();

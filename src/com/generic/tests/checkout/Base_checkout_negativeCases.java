@@ -255,7 +255,6 @@ public class Base_checkout_negativeCases extends SelTestCase {
 				}
 
 				if (proprties.contains("Payment_With invalid CardNumber")) {
-
 					CheckOut.paymentInformation.fillAndclickNext(
 							(String) paymentDetails.get(CheckOut.paymentInformation.keys.name), "4222222222222222",
 							(String) paymentDetails.get(CheckOut.paymentInformation.keys.expireMonth),
@@ -355,7 +354,6 @@ public class Base_checkout_negativeCases extends SelTestCase {
 				}
 
 				if (proprties.contains("Payment_Without first name")) {
-
 					CheckOut.paymentInformation.fillAndclickNext(
 							(String) paymentDetails.get(CheckOut.paymentInformation.keys.name),
 							(String) paymentDetails.get(CheckOut.paymentInformation.keys.number),
@@ -470,7 +468,7 @@ public class Base_checkout_negativeCases extends SelTestCase {
 							(String) billAddressDetails.get(CheckOut.shippingAddress.keys.postal));
 
 					String globalAlertMsg = MessageFormat.format(LoggingMsg.ACTUAL_EXPECTED_ERROR,
-							CheckOut.paymentInformation.getAlertInfo(), globalAlerts);
+                            CheckOut.paymentInformation.getAlertInfo(), globalAlerts);
 					Assert.assertTrue(globalAlertMsg.contains(globalAlerts), globalAlertMsg);
 					String currentEerrorsMsg = CheckOut.paymentInformation.getBillToCityError();
 					String ErrorMsg = MessageFormat.format(LoggingMsg.ACTUAL_EXPECTED_ERROR, currentEerrorsMsg,
@@ -504,7 +502,6 @@ public class Base_checkout_negativeCases extends SelTestCase {
 				}
 
 				if (proprties.contains("Payment_Without postcode")) {
-
 					CheckOut.paymentInformation.fillAndclickNext(
 							(String) paymentDetails.get(CheckOut.paymentInformation.keys.name),
 							(String) paymentDetails.get(CheckOut.paymentInformation.keys.number),

@@ -185,7 +185,7 @@ public class EnvoyCheckOut extends SelTestCase {
 			public static final String expireDate = "expireDate";
 			public static final String CVCC = "CVCC";
 		}
-		public static void fillAndclickNext(boolean billSameShip, String email,String firstName,
+		public static void fillPaymentDetails(boolean billSameShip, String email,String firstName,
 				String lastName, String address,String postal, String country, String state, String city,String phone, String cardNumber, String expDate,
 				String CVC) throws Exception {
 			getCurrentFunctionName(true);
@@ -201,7 +201,6 @@ public class EnvoyCheckOut extends SelTestCase {
 				typeExpDate(expDate);
 			if (!"".equals(CVC))
 				typeSecNumber(CVC);
-			orderDetails.clickPlaceOrder();
 			Thread.sleep(1000);
 			getCurrentFunctionName(false);
 		}

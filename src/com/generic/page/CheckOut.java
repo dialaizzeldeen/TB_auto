@@ -291,7 +291,25 @@ public class CheckOut extends SelTestCase {
 			public static final String postal = "postal";
 			public static final String phone = "phone";
 		}
-
+		
+		public static String getCurrentPage() throws Exception {
+			getCurrentFunctionName(true);
+			List<String> subStrArr = new ArrayList<String>();
+			List<String> valuesArr = new ArrayList<String>();
+			subStrArr.add(CheckOutSelectors.currentPage);
+			valuesArr.add("");
+			String currentPage = null;
+			try {
+				SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+				currentPage = SelectorUtil.textValue.get();
+			} catch (Exception e) {
+				currentPage = "Order Confirmation";
+			}
+			logs.debug(MessageFormat.format(LoggingMsg.SEL_TEXT, currentPage));
+			getCurrentFunctionName(false);
+			return currentPage;
+		}
+		
 		public static void clickAddAddressBtn() throws Exception {
 			getCurrentFunctionName(true);
 			List<String> subStrArr = new ArrayList<String>();
@@ -1536,7 +1554,22 @@ public class CheckOut extends SelTestCase {
 			public static final String orderShipping = "orderShipping";
 
 		}
-
+		
+		public static boolean checkOrderConfirmationPage() throws Exception {
+			getCurrentFunctionName(true);
+			List<String> subStrArr = new ArrayList<String>();
+			subStrArr.add(CheckOutSelectors.orderConfirmationMessage);
+			boolean isDisplayed = false;
+			try {
+				isDisplayed = SelectorUtil.isDisplayed(subStrArr);
+				logs.debug("Order Confirmation page is loaded as expected");
+			} catch (NoSuchElementException e) {
+				logs.debug("Order Confirmation page is not loaded correctly");
+			}
+			getCurrentFunctionName(false);
+			return isDisplayed;
+		}
+		
 		public static String getOrderId() throws Exception {
 			getCurrentFunctionName(true);
 			List<String> subStrArr = new ArrayList<String>();
@@ -1576,12 +1609,15 @@ public class CheckOut extends SelTestCase {
 
 		}
 
-		public static String getGiftServices(Boolean IsPromotionApplied) throws Exception {
+		public static String getGiftServices(Boolean IsShippingPromotionApplied,Boolean IsProductPromotionApplied) throws Exception {
 			getCurrentFunctionName(true);
 			List<String> subStrArr = new ArrayList<String>();
 			List<String> valuesArr = new ArrayList<String>();
 			subStrArr.add(CheckOutSelectors.totalItem);
-			if(IsPromotionApplied) {
+			if(IsShippingPromotionApplied && IsProductPromotionApplied) {
+				valuesArr.add("index,3");
+			}
+			else if(IsShippingPromotionApplied || IsProductPromotionApplied) {
 				valuesArr.add("index,2");
 			}
 			else {
