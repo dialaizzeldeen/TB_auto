@@ -8,6 +8,7 @@ public class LoggingMsg {
 	public static final String PDPDESC = "<b>Case ID: </b>{0} <br><b>File of execution:</b> {1}<br><b>Decrption: </b>{2}<br><b>case proprties:</b><br>- {3}";
 	public static final String TEST_CASE_DESC = "<b>Case ID: </b>{0} <br><b>File of execution:</b> {1}<br><b>Description: </b>{2}<br>";
 	public static String CLICKING_CART_BUTTON = "clicking on {0} btn from cart";
+	public static String SELECTING_GC_AMOUNT = "selecting {0} amount";
 	public static String NUMBER_OF_PRODUCTS = "number of products: {0}";
 	public static String NUMBER_OF_ORDERS = "number of orders: {0}";
 	public static String CART_ID = "Cart ID: {0}";

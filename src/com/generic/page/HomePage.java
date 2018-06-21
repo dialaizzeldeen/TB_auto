@@ -53,12 +53,12 @@ public class HomePage extends SelTestCase {
 		getCurrentFunctionName(false);
 	}
 	
-	public static void updateHeaderBaseline(String baseline) throws Exception {
+	public static void updateLogoBaseline(String baseline) throws Exception {
 		List<String> subStrArr = new ArrayList<String>();
 		List<String> valuesArr = new ArrayList<String>();
 		getCurrentFunctionName(true);
 		logs.debug(MessageFormat.format(LoggingMsg.TYPING_ELEMENT_VALUE, "guest mail", baseline));
-		subStrArr.add(HomePageSelectors.header);
+		subStrArr.add(HomePageSelectors.logo);
 		valuesArr.add("VisualTesting");
 		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 		String imagePath = EnvironmentFiles.getVisualTestingAssetsPath() + "/" + baseline+".png";
@@ -181,13 +181,15 @@ public class HomePage extends SelTestCase {
 	
 	public static void updateBaselineForRH(String baseline) throws Exception {
 		getCurrentFunctionName(true);
-		String VTAs =EnvironmentFiles.getVisualTestingAssetsPath();
-		String baselineAbsPath = VTAs + "/" + baseline+ ".png";
-		String logs_dir = EnvironmentFiles.getLogFilePath();	
-    	File baseLineFile = new File(baselineAbsPath);
-		FileUtils.copyFileToDirectory(baseLineFile, Paths.get(logs_dir).toFile());
-		String baselinePathInLogs =  logs_dir + "/" + baseline + ".png";
-		logs.debug("IMAGE:<br><a target=\"_blank\" href="+ baseline + ".png"+"><img src=" + baseline + ".png"+" alt=" + baseline + ".png"+" style=\"width:150px\"></a>");
+		List<String> subStrArr = new ArrayList<String>();
+		List<String> valuesArr = new ArrayList<String>();
+		logs.debug(MessageFormat.format(LoggingMsg.TYPING_ELEMENT_VALUE, "guest mail", baseline));
+		subStrArr.add(HomePageSelectors.RightHeader);
+		valuesArr.add("VisualTesting");
+		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		String imagePath = EnvironmentFiles.getVisualTestingAssetsPath() + "/" + baseline+".png";
+		ImageIO.write(SelectorUtil.screenShot.get().getImage(),"PNG",new File(imagePath));
+		logs.debug("IMAGE:<br><a target=\"_blank\" href="+ baseline+".png"+"><img src=" + baseline+".png"+" alt=" + baseline+".png"+" style=\"width:150px\"></a>");
 		getCurrentFunctionName(false);
 	}
 	public static boolean verifyRightHeader(String baseline) throws Exception {
