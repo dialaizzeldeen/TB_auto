@@ -79,7 +79,7 @@ public class HomePageBase extends SelTestCase {
 			if (proprties.contains(this.update))
 			{
 				if (proprties.contains(this.header))
-					HomePage.updateHeaderBaseline(baseline_browser);
+					HomePage.updateLogoBaseline(baseline_browser);
 				if (proprties.contains(this.footer))
 					HomePage.updateFooterBaseline(baseline_browser);
 				if (proprties.contains(this.body))

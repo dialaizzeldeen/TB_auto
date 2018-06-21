@@ -32,8 +32,20 @@ public class PDPSelectors
 	public static String variantSelectedStyleName = "current-swatch-name-hover";
 	
 	public static String sizeOptions = "css,#Size>option"; 
-	
 	public static String displayedVariantSizeName = "size selected";
 	public static String variantSelectedSizeName = "css,#Size>option[selected]";
+	//done
+	public static String GCAmount = "css,#giftCardCode"; 
+	public static String GCRecipientEmail = "css,#giftCardRecipientEmail"; 
+	public static String VGCconfirmRecipientEmail = "css,#giftCardConfirmEmail"; 
+	public static String GCRecipientName = "css,#giftCardToName"; 
+	public static String GCFromName = "css,#giftCardFromName"; 
+	public static String GCRecipientMessage = "css,#giftCardMessage"; 
+	public static String addToCartVGCBtn = "btn add-to-bag add-to-bag-virtual-gift-card"; 
+	public static String addToCartTGCBtn = "btn add-to-bag add-to-bag-traditional-gift-card";
+
+
+
+	
 	
 }

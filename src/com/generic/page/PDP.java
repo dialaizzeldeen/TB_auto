@@ -158,7 +158,105 @@ public static String getImageUrl() throws Exception {
 		getCurrentFunctionName(false);
 		return SelectorUtil.textValue.get();
 	}
+//diala izz
+	public static void selectAmount(String amount) throws Exception {
+		getCurrentFunctionName(true);
+		List<String> subStrArr = new ArrayList<String>();
+		List<String> valuesArr = new ArrayList<String>();
+		logs.debug(MessageFormat.format(LoggingMsg.SELECTING_GC_AMOUNT, amount ));
+		subStrArr.add(PDPSelectors.GCAmount);
+        valuesArr.add(amount);
+		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		getCurrentFunctionName(false);
+	}
+	public static void writeEmail(String email) throws Exception {
+		getCurrentFunctionName(true);
+		List<String> subStrArr = new ArrayList<String>();
+		List<String> valuesArr = new ArrayList<String>();
+		subStrArr.add(PDPSelectors.GCRecipientEmail);
+		valuesArr.add(email);
+		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		getCurrentFunctionName(false);
+	}
+	public static void confirmEmail(String email) throws Exception {
+		getCurrentFunctionName(true);
+		List<String> subStrArr = new ArrayList<String>();
+		List<String> valuesArr = new ArrayList<String>();
+		subStrArr.add(PDPSelectors.VGCconfirmRecipientEmail);
+		valuesArr.add(email);
+		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		getCurrentFunctionName(false);
+	}
+	public static void GCtoName(String name) throws Exception {
+		getCurrentFunctionName(true);
+		List<String> subStrArr = new ArrayList<String>();
+		List<String> valuesArr = new ArrayList<String>();
+		subStrArr.add(PDPSelectors.GCRecipientName);
+		valuesArr.add(name);
+		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		getCurrentFunctionName(false);
+	}
+	public static void GCfromName(String name) throws Exception {
+		getCurrentFunctionName(true);
+		List<String> subStrArr = new ArrayList<String>();
+		List<String> valuesArr = new ArrayList<String>();
+		subStrArr.add(PDPSelectors.GCFromName);
+		valuesArr.add(name);
+		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		getCurrentFunctionName(false);
+	}
+	public static void writeMessage(String message) throws Exception {
+		getCurrentFunctionName(true);
+		List<String> subStrArr = new ArrayList<String>();
+		List<String> valuesArr = new ArrayList<String>();
+		subStrArr.add(PDPSelectors.GCRecipientMessage);
+		valuesArr.add(message);
+		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		getCurrentFunctionName(false);
+	}
+	public static void VGCaddToBag() throws Exception {
+		getCurrentFunctionName(true);
+		List<String> subStrArr = new ArrayList<String>();
+		List<String> valuesArr = new ArrayList<String>();
+		subStrArr.add(PDPSelectors.addToCartVGCBtn);
+		valuesArr.add("");
+		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		getCurrentFunctionName(false);
+	}
+	public static void TGCaddToBag() throws Exception {
+		getCurrentFunctionName(true);
+		List<String> subStrArr = new ArrayList<String>();
+		List<String> valuesArr = new ArrayList<String>();
+		subStrArr.add(PDPSelectors.addToCartTGCBtn);
+		valuesArr.add("");
+		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		getCurrentFunctionName(false);
+	}
+	public static void addVGCToCart(String amount, String email, String confirmEmail,String ToName,String FromName, String message) throws Exception {
+		getCurrentFunctionName(true);
+		selectAmount(amount);
+		writeEmail(email);
+		confirmEmail(confirmEmail);
+		GCtoName(ToName);
+		GCfromName(FromName);
+		writeMessage(message);
+		VGCaddToBag();
+		getCurrentFunctionName(false);
 
+	}
+	
+	public static void addTGCToCart(String amount, String email, String ToName, String FromName, String message) throws Exception {
+		getCurrentFunctionName(true);
+		selectAmount(amount);
+		GCtoName(ToName);
+		GCfromName(FromName);
+		writeMessage(message);
+		writeEmail(email);
+		TGCaddToBag();
+		getCurrentFunctionName(false);
+
+	}
+	
 	public static String getSummary() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -236,7 +334,7 @@ public static String getImageUrl() throws Exception {
 		return SelectorUtil.textValue.get();
 	}
 	
-	public static String getProductQtyInCartPopyp() throws Exception {
+	public static String getProductQtyInCartPopup() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
 		List<String> valuesArr = new ArrayList<String>();

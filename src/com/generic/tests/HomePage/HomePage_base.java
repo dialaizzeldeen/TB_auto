@@ -19,6 +19,7 @@ import org.testng.xml.XmlTest;
 import com.generic.setup.Common;
 import com.generic.setup.EnvironmentFiles;
 import com.generic.setup.LoggingMsg;
+import com.generic.setup.PagesURLs;
 import com.generic.setup.SelTestCase;
 import com.generic.setup.SheetVariables;
 import com.generic.util.ReportUtil;
@@ -72,9 +73,12 @@ public class HomePage_base extends SelTestCase {
 
 		try {
 			String baseline_browser = baseline + "_" + getBrowserName().replace(" ", "_");
+			String url = PagesURLs.getHomePage();
+			getDriver().get(url);
+
 			if (proprties.contains("update logo")) {
 
-				HomePage.updateHeaderBaseline(baseline_browser);
+				HomePage.updateLogoBaseline(baseline_browser);
 			}
 			if (proprties.contains("update RH for United State")) {
 
@@ -105,11 +109,11 @@ public class HomePage_base extends SelTestCase {
 
 			if (proprties.contains("verify RH for United State")) {
 
-				sassert().assertTrue(HomePage.verifyRightHeader(baseline_browser), "right header error for US  ");
+				sassert().assertTrue(HomePage.verifyRightHeader(baseline_browser), "right header error for US");
 			}
 			if (proprties.contains("verify RH for internationally")) {
 				sassert().assertTrue(HomePage.verifyRightHeader(baseline_browser),
-						"right header error for internationally  ");
+						"right header error for internationally");
 
 			}
 
@@ -117,7 +121,7 @@ public class HomePage_base extends SelTestCase {
 
 				sassert().assertTrue(HomePage.ShipTo().contains("US"));
 			}
-			if (proprties.contains("verify ShipTo IU ")) {
+			if (proprties.contains("verify ShipTo IU")) {
 				HomePage.changeCountry("Germany");
 				sassert().assertTrue(HomePage.ShipTo().contains("DE"));
 			}
