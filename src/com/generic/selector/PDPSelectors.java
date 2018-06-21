@@ -23,7 +23,7 @@ public class PDPSelectors
 	public static String showReviews = "Show Reviews";
 	public static String reviewEntry = "tab-review";
 	public static String cartPopupError = "cart_popup_error_msg";
-	public static String cartPopupProductQty = "css,.details>.qty";
+	public static String cartPopupProductQty = "css,#minicart-count";
 	public static String ratingValue = "rating-stars pull-left js-ratingCalc";
 	public static String activeStars = "BVRRCount BVRRNonZeroCount";
 	public static String variantList = "css,.variant-list>li>a>img";

@@ -175,7 +175,7 @@ public static String getImageUrl() throws Exception {
 		List<String> valuesArr = new ArrayList<String>();
 		subStrArr.add(PDPSelectors.GCRecipientEmail);
 		valuesArr.add(email);
-		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		SelectorUtil.typeText(subStrArr, email);
 		getCurrentFunctionName(false);
 	}
 	public static void confirmEmail(String email) throws Exception {
@@ -184,7 +184,7 @@ public static String getImageUrl() throws Exception {
 		List<String> valuesArr = new ArrayList<String>();
 		subStrArr.add(PDPSelectors.VGCconfirmRecipientEmail);
 		valuesArr.add(email);
-		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		SelectorUtil.typeText(subStrArr, email);
 		getCurrentFunctionName(false);
 	}
 	public static void GCtoName(String name) throws Exception {

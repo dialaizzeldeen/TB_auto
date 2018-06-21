@@ -12,7 +12,7 @@ public class HomePageSelectors
 	public static final String updateCountryLink= "update-country-link";
 	public static final String selectCurrency= "currencyCode";
 	public static final String logo = "css,#main-header-logo>a";
-	public static final String MyAccount ="my-account"; 
+	public static final String MyAccount ="My Account"; 
 	public static final String RightHeader ="css,#right-header";
 	public static final String ShipTo ="intl-flag";
 
