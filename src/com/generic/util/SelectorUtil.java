@@ -390,7 +390,7 @@ public class SelectorUtil extends SelTestCase {
 						   }
 						   else {
 							   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-								       .withTimeout(30, TimeUnit.SECONDS)
+								       .withTimeout(40, TimeUnit.SECONDS)
 								       .pollingEvery(5, TimeUnit.SECONDS)
 								       .ignoring(NoSuchElementException.class);   
 						   }
@@ -450,7 +450,7 @@ public class SelectorUtil extends SelTestCase {
 						   }
 						   else {
 							   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-								       .withTimeout(30, TimeUnit.SECONDS)
+								       .withTimeout(40, TimeUnit.SECONDS)
 								       .pollingEvery(5, TimeUnit.SECONDS)
 								       .ignoring(NoSuchElementException.class);   
 						   }
@@ -480,12 +480,15 @@ public class SelectorUtil extends SelTestCase {
 						   }
 						   else {
 							   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-								       .withTimeout(30, TimeUnit.SECONDS)
+								       .withTimeout(40, TimeUnit.SECONDS)
 								       .pollingEvery(5, TimeUnit.SECONDS)
 								       .ignoring(NoSuchElementException.class);   
 						   }
 							   //TODO: move it to general function
 					   
+						  if(value.equals("noClick")){}
+						  
+						  else{  
 						   logs.debug(MessageFormat.format(LoggingMsg.CLICKING_SEL, byAction.toString()));
 						   JavascriptExecutor jse = (JavascriptExecutor)getDriver();
 						   jse.executeScript("arguments[0].scrollIntoView(false)", field); 
@@ -504,6 +507,7 @@ public class SelectorUtil extends SelTestCase {
 							   ((JavascriptExecutor) SelTestCase.getDriver()).executeScript("arguments[0].click()", field2);
 						   
 					   }
+				}
 					   else if (action.equals("check"))
 					   {
 						   logs.debug(MessageFormat.format(LoggingMsg.CHECKBOX_SEL_VAL, byAction.toString(), value));
@@ -521,7 +525,7 @@ public class SelectorUtil extends SelTestCase {
 								   }
 								   else {
 									   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-										       .withTimeout(30, TimeUnit.SECONDS)
+										       .withTimeout(40, TimeUnit.SECONDS)
 										       .pollingEvery(5, TimeUnit.SECONDS)
 										       .ignoring(NoSuchElementException.class);   
 								   }
@@ -563,7 +567,7 @@ public class SelectorUtil extends SelTestCase {
 								   }
 								   else {
 									   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-										       .withTimeout(30, TimeUnit.SECONDS)
+										       .withTimeout(40, TimeUnit.SECONDS)
 										       .pollingEvery(5, TimeUnit.SECONDS)
 										       .ignoring(NoSuchElementException.class);   
 								   }
@@ -629,7 +633,7 @@ public class SelectorUtil extends SelTestCase {
 								   }
 								   else {
 									   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-										       .withTimeout(30, TimeUnit.SECONDS)
+										       .withTimeout(40, TimeUnit.SECONDS)
 										       .pollingEvery(5, TimeUnit.SECONDS)
 										       .ignoring(NoSuchElementException.class);   
 								   }
@@ -753,6 +757,7 @@ public class SelectorUtil extends SelTestCase {
 	    	boolean isDisplayed = true;
     		if (!items.get(index).isDisplayed())
     			isDisplayed = false;
+    		
 	    	getCurrentFunctionName(false);
 	    	return isDisplayed;
 	    }
@@ -811,7 +816,7 @@ public class SelectorUtil extends SelTestCase {
 		   }
 		   else {
 			   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-				       .withTimeout(30, TimeUnit.SECONDS)
+				       .withTimeout(120, TimeUnit.SECONDS)
 				       .pollingEvery(5, TimeUnit.SECONDS)
 				       .ignoring(NoSuchElementException.class);   
 		   }
