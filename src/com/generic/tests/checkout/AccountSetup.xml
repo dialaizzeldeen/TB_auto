@@ -16,6 +16,10 @@
 	<class name="com.generic.tests.checkout.AccountsSetupUS" />
 	<class name="com.generic.tests.checkout.AccountsSetupCanada" />
 	<class name="com.generic.tests.Registration.CreateNewAccounts" />
+<<<<<<< HEAD
 	</classes>
+=======
+</classes>
+>>>>>>> branch 'search' of https://github.com/ibatta/TB_auto
 </test><!-- Test -->
 </suite> <!-- Suite -->

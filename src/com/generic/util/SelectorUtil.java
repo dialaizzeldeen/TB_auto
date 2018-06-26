@@ -464,6 +464,8 @@ public class SelectorUtil extends SelTestCase {
 						       .ignoring(NoSuchElementException.class);
 							   //TODO: move it to general function
 					   
+						  if(!value.equals("noClick")){
+						 
 						   logs.debug(MessageFormat.format(LoggingMsg.CLICKING_SEL, byAction.toString()));
 						   JavascriptExecutor jse = (JavascriptExecutor)getDriver();
 						   jse.executeScript("arguments[0].scrollIntoView(false)", field); 
@@ -482,6 +484,7 @@ public class SelectorUtil extends SelTestCase {
 							   ((JavascriptExecutor) SelTestCase.getDriver()).executeScript("arguments[0].click()", field2);
 						   
 					   }
+				}
 					   else if (action.equals("check"))
 					   {
 						   logs.debug(MessageFormat.format(LoggingMsg.CHECKBOX_SEL_VAL, byAction.toString(), value));
