@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="checkout Regression" parallel="tests" thread-count="10" data-provider-thread-count="2">
+
+	<test name="checkout chrome">
+		<parameter name="browserName" value="chrome"></parameter>
+		<classes>
+	    <class name="com.generic.tests.checkout.Base_checkoutCanada" />
+	    <class name="com.generic.tests.checkout.Base_checkoutUS" />
+	    <class name="com.generic.tests.checkout.Base_checkoutKIOSK" />
+		<class name="com.generic.tests.checkout.Base_EnvoyCheckout" />
+		</classes>
+	</test><!-- Test -->
+	
+	<test name="checkout firfox">
+	<parameter name="browserName" value="firefox"></parameter>
+	<classes>
+    <class name="com.generic.tests.checkout.Base_checkoutCanada" />
+    <class name="com.generic.tests.checkout.Base_checkoutUS" />
+    <class name="com.generic.tests.checkout.Base_checkoutKIOSK" />
+	<class name="com.generic.tests.checkout.Base_EnvoyCheckout" />
+	</classes>
+</test><!-- Test -->
+
+</suite> <!-- Suite -->

@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.imageio.ImageIO;
 
@@ -18,6 +19,7 @@ import com.generic.selector.CheckOutSelectors;
 import com.generic.selector.HomePageSelectors;
 import com.generic.selector.MyAccount_Selectors;
 import com.generic.setup.EnvironmentFiles;
+import com.generic.setup.ExceptionMsg;
 import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
 import com.generic.util.SelectorUtil;
@@ -31,16 +33,25 @@ public class HomePage extends SelTestCase {
 	
 	public static void closeSubcriptionPopup() throws Exception {
 		getCurrentFunctionName(true);
+		try {
 		List<String> subStrArr = new ArrayList<String>();
 		List<String> valuesArr = new ArrayList<String>();
 		logs.debug(MessageFormat.format(LoggingMsg.CLICKING_CLOSE_ICON, "subcription closes icon"));
 		subStrArr.add(HomePageSelectors.subcriptionCloseIcon);
 		valuesArr.add("");
-		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		try {
+			SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		}catch (Exception e) {
+			logs.debug("subcription popup is not appearing");
+		}
 		getCurrentFunctionName(false);
-
+	} catch (NoSuchElementException e) {
+		logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+		}.getClass().getEnclosingMethod().getName()));
+		throw e;
 	}
-	
+	}
+
 	public static void prepareBaselineforLogs(String baseline) throws Exception {
 		getCurrentFunctionName(true);
 		String VTAs =EnvironmentFiles.getVisualTestingAssetsPath();

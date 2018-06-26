@@ -4,8 +4,8 @@
 	<test name="checkout chrome">
 		<parameter name="browserName" value="chrome"></parameter>
 		<classes>
-	    <class name="com.generic.tests.checkout.Base_checkoutUS" />
 	    <class name="com.generic.tests.checkout.Base_checkoutCanada" />
+	    <class name="com.generic.tests.checkout.Base_checkoutUS" />
 	    <class name="com.generic.tests.checkout.Base_checkoutKIOSK" />
 		<class name="com.generic.tests.checkout.Base_EnvoyCheckout" />
 		</classes>

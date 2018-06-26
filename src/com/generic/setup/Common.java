@@ -32,17 +32,12 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.logging.LogType;
-import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import com.generic.util.ReportUtil;
-import com.generic.util.TestUtilities;
 import com.generic.util.dataProviderUtils;
-
-import net.bytebuddy.dynamic.loading.InjectionClassLoader.Strategy;
 
 public class Common extends SelTestCase {
 
@@ -349,7 +344,7 @@ public class Common extends SelTestCase {
 		}
 	}
 
-	public static LinkedHashMap<String, Object> readAddresses() {
+	public static LinkedHashMap<String, Object> readAddresses() throws Exception {
 		/*
 		 * output example [ { A1={ firstName=Accept, lastName=Tester, title=MR.,
 		 * adddressLine=49FeatherstoneStreet, city=LONDON, postal=EC1Y8SY,
@@ -391,7 +386,7 @@ public class Common extends SelTestCase {
 		return addresses;
 	}// readAddresses
 
-	public static LinkedHashMap<String, Object> readLocalInventory() {
+	public static LinkedHashMap<String, Object> readLocalInventory() throws Exception {
 		/*
 		 * Output example [ { P1={
 		 * url=/yacceleratorstorefront/en/Categories/Bags%2BBoardbags/Bags/Seizure-
@@ -441,7 +436,7 @@ public class Common extends SelTestCase {
 		return products;
 	}// readProducts
 
-	public static LinkedHashMap<String, Object> readPaymentcards() {
+	public static LinkedHashMap<String, Object> readPaymentcards() throws Exception {
 		/*
 		 [
 		  {
@@ -490,7 +485,7 @@ public class Common extends SelTestCase {
 		return cards;
 	}// read payments
 
-	public static LinkedHashMap<String, Object> readTestparams(String testSheet, int caseIndex) {
+	public static LinkedHashMap<String, Object> readTestparams(String testSheet, int caseIndex) throws Exception {
 		/*
 		 * [
 			  {
@@ -527,7 +522,7 @@ public class Common extends SelTestCase {
 		return tests;
 	}// read test param
 
-	public static LinkedHashMap<String, Object> readUsers() {
+	public static LinkedHashMap<String, Object> readUsers() throws Exception {
 		/*
 		[
 		  {
@@ -576,7 +571,7 @@ public class Common extends SelTestCase {
 		return users;
 	}//read users
 	
-	public static String[] readRunners() {
+	public static String[] readRunners() throws Exception {
 		ArrayList<String> runners = new ArrayList<String>();
 		
 		dataProviderUtils TDP = dataProviderUtils.getInstance();
@@ -592,7 +587,7 @@ public class Common extends SelTestCase {
 		return runners.toArray(new String[runners.size()]); 
 	}//read runners
 	
-	public static String[] readBrowsers() {
+	public static String[] readBrowsers() throws Exception {
 
 		ArrayList<String> browsers = new ArrayList<String>();
 		

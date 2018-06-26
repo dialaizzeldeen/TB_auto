@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="tests" thread-count="10" data-provider-thread-count="3">
-
 	<test name="account chrome">
 	<parameter name="browserName" value="chrome"></parameter>
 	<classes>
 		<class name="com.generic.tests.checkout.AccountsSetupUS" />
 		<class name="com.generic.tests.checkout.AccountsSetupCanada" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-		<class name="com.generic.tests.Registration_Done.CreateNewAccounts" />
-=======
->>>>>>> 9e27e1a6d23438899df9f419315ab8f999e578f4
-=======
->>>>>>> 5e067e529774ccdb04a21a650f35a529e6636338
+		<class name="com.generic.tests.Registration.CreateNewAccounts" />
 	</classes>
 </test><!-- Test -->
 
@@ -22,13 +15,7 @@
 <classes>
 	<class name="com.generic.tests.checkout.AccountsSetupUS" />
 	<class name="com.generic.tests.checkout.AccountsSetupCanada" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-	<class name="com.generic.tests.Registration_Done.CreateNewAccounts" />
-=======
->>>>>>> 9e27e1a6d23438899df9f419315ab8f999e578f4
-=======
->>>>>>> 5e067e529774ccdb04a21a650f35a529e6636338
-</classes>
+	<class name="com.generic.tests.Registration.CreateNewAccounts" />
+	</classes>
 </test><!-- Test -->
 </suite> <!-- Suite -->

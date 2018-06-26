@@ -75,7 +75,8 @@ public class HomePage_base extends SelTestCase {
 			String baseline_browser = baseline + "_" + getBrowserName().replace(" ", "_");
 			String url = PagesURLs.getHomePage();
 			getDriver().get(url);
-
+			
+			HomePage.closeSubcriptionPopup();
 			if (proprties.contains("update logo")) {
 
 				HomePage.updateLogoBaseline(baseline_browser);
@@ -102,7 +103,7 @@ public class HomePage_base extends SelTestCase {
 				sassert().assertTrue(HomePage.checkMyAccountBttn("United States"));
 			}
 
-			if (proprties.contains("verify MyAccountBttn is not all international users")) {
+			if (proprties.contains("verify MyAccountBttn is not displayed for all international users")) {
 				HomePage.changeCountry("Germany");
 				sassert().assertTrue(HomePage.checkMyAccountBttn("Germany"));
 			}

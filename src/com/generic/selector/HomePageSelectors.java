@@ -6,7 +6,8 @@ public class HomePageSelectors
 	public static final String header = "js-mainHeader";
 	public static final String footer = "css,#main-footer>#footer-elements";
 	public static final String body = "Loyal Customers";
-	public static final String subcriptionCloseIcon= "css,.popup-dialog>.popup-content>div>div>div>a";
+	public static final String subcriptionCloseIcon= "css,.popup-content>div>div>div>img";
+	public static final String subcriptionNoThanksBtn= "No Thanks";
 	public static final String shipToIcon= "intl-flag";
 	public static final String selectCountry= "country";
 	public static final String updateCountryLink= "update-country-link";

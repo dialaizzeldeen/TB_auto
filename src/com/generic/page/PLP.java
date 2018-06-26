@@ -290,7 +290,7 @@ public class PLP extends SelTestCase {
 	public static boolean isStyleFilterAvailable() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
-		subStrArr.add(PLPSelectors.sizeFilter);
+		subStrArr.add(PLPSelectors.styleFilter);
 		boolean isDisplayed = false;
 		try {
 			isDisplayed = SelectorUtil.isDisplayed(subStrArr);
@@ -306,8 +306,8 @@ public class PLP extends SelTestCase {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
 		List<String> valuesArr = new ArrayList<String>();
-		logs.debug(MessageFormat.format(LoggingMsg.CLICKING_SEL, PLPSelectors.sizeFilter));
-		subStrArr.add(PLPSelectors.sizeFilter);
+		logs.debug(MessageFormat.format(LoggingMsg.CLICKING_SEL, PLPSelectors.styleFilter));
+		subStrArr.add(PLPSelectors.styleFilter);
 		valuesArr.add("");
 		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 		getCurrentFunctionName(false);

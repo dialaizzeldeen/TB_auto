@@ -32,6 +32,7 @@ import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 
 import com.generic.setup.ExceptionMsg;
+import com.generic.setup.GlobalVariables;
 import com.generic.setup.LoggingMsg;
 
 
@@ -227,13 +228,15 @@ public class SelectorUtil extends SelTestCase {
 					//logs.debug(e.toString());//Debugging purposes
 				
 			if (e.tagName().equals("input") && (e.attr("type").equals("number") || e.attr("type").equals("text")
-					|| e.attr("type").equals("password") || e.attr("type").equals(""))) {
+					|| e.attr("type").equals("password") || e.attr("type").equals("") || e.attr("type").equals("tel")
+					|| e.attr("type").equals("email"))) {
 						return "type";
 					} else if (e.tagName().equals("select")) {
 						return "selectByText";
 					} else if (e.tagName().equals("input") && e.attr("type").equals("checkbox") ){
 				        	return "check";
 					} else if (e.tagName().equals("button") ||
+							e.tagName().equals("option")||
 							e.tagName().equals("img") ||
 							e.tagName().equals("a")||
 							e.tagName().equals("li") ||
@@ -247,8 +250,9 @@ public class SelectorUtil extends SelTestCase {
 					}else if (e.tagName().equals("input") && e.attr("type").equals("radio")) {
 						return "click";
 					}
-					else if (e.tagName().equals("p")||
-							e.tagName().equals("body") || e.tagName().equals("td") || e.tagName().contains("h")||e.tagName().contains("ul")||e.tagName().contains("dd")||e.tagName().contains("dl")) {
+					else if (e.tagName().equals("p")||e.tagName().equals("tr")||
+					e.tagName().equals("body") || e.tagName().equals("td") || e.tagName().contains("h")
+					|| e.tagName().contains("ul") || e.tagName().contains("dd")) {
 						return "gettext";
 					}else if (e.tagName().equals("div") || e.tagName().equals("span"))
 					{
@@ -381,19 +385,11 @@ public class SelectorUtil extends SelTestCase {
 		    			
 		    			if (action.equals("hover"))
 		    			{
-		 				   Wait<WebDriver> wait = null;
-						   if(browser.contains("firefox") ) {
-							   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-								       .withTimeout(40, TimeUnit.SECONDS)
-								       .pollingEvery(5, TimeUnit.SECONDS)
-								       .ignoring(NoSuchElementException.class);
-						   }
-						   else {
-							   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
+		    				
+		    				Wait<WebDriver> wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
 								       .withTimeout(30, TimeUnit.SECONDS)
 								       .pollingEvery(5, TimeUnit.SECONDS)
-								       .ignoring(NoSuchElementException.class);   
-						   }
+								       .ignoring(NoSuchElementException.class);
 									   //TODO: move it to general function
 							   
 						   logs.debug("Hovering: "+ byAction.toString());
@@ -441,19 +437,10 @@ public class SelectorUtil extends SelTestCase {
 					   }
 					   else if(value.contains("VisualTesting"))
 					   {
-						   Wait<WebDriver> wait = null;
-						   if(browser.contains("firefox") ) {
-							   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-								       .withTimeout(40, TimeUnit.SECONDS)
-								       .pollingEvery(5, TimeUnit.SECONDS)
-								       .ignoring(NoSuchElementException.class);
-						   }
-						   else {
-							   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-								       .withTimeout(30, TimeUnit.SECONDS)
-								       .pollingEvery(5, TimeUnit.SECONDS)
-								       .ignoring(NoSuchElementException.class);   
-						   }
+						   Wait<WebDriver> wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
+							       .withTimeout(30, TimeUnit.SECONDS)
+							       .pollingEvery(5, TimeUnit.SECONDS)
+							       .ignoring(NoSuchElementException.class);
 								   //TODO: move it to general function
 						   
 						   logs.debug("Visual testing for: " + field.toString());
@@ -471,19 +458,10 @@ public class SelectorUtil extends SelTestCase {
 					   }
 					   else if (action.equals("click"))
 					   {
-						   Wait<WebDriver> wait = null;
-						   if(browser.contains("firefox") ) {
-							   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-								       .withTimeout(40, TimeUnit.SECONDS)
-								       .pollingEvery(5, TimeUnit.SECONDS)
-								       .ignoring(NoSuchElementException.class);
-						   }
-						   else {
-							   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-								       .withTimeout(30, TimeUnit.SECONDS)
-								       .pollingEvery(5, TimeUnit.SECONDS)
-								       .ignoring(NoSuchElementException.class);   
-						   }
+					   		Wait<WebDriver> wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
+						       .withTimeout(30, TimeUnit.SECONDS)
+						       .pollingEvery(5, TimeUnit.SECONDS)
+						       .ignoring(NoSuchElementException.class);
 							   //TODO: move it to general function
 					   
 						   logs.debug(MessageFormat.format(LoggingMsg.CLICKING_SEL, byAction.toString()));
@@ -495,7 +473,7 @@ public class SelectorUtil extends SelTestCase {
 								   return driver.findElement(byAction);
 							   }});
 						    logs.debug("browser..."+ browser);
-						   if(browser.contains("firefox") )
+						   if(browser.contains(GlobalVariables.browsers.firefox) )
 						   {
 							   logs.debug("clicking..."+ SelTestCase.getBrowserName());
 							   field2.click();
@@ -512,20 +490,11 @@ public class SelectorUtil extends SelTestCase {
 							   if (!field.isSelected())
 							   {
 								   logs.debug(MessageFormat.format(LoggingMsg.CHECKING_UNCHECKING_MSG, "", "not "));
-								   Wait<WebDriver> wait = null;
-								   if(browser.contains("firefox") ) {
-									   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-										       .withTimeout(40, TimeUnit.SECONDS)
-										       .pollingEvery(5, TimeUnit.SECONDS)
-										       .ignoring(NoSuchElementException.class);
-								   }
-								   else {
-									   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-										       .withTimeout(30, TimeUnit.SECONDS)
-										       .pollingEvery(5, TimeUnit.SECONDS)
-										       .ignoring(NoSuchElementException.class);   
-								   }
-		
+								   Wait<WebDriver> wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
+									       .withTimeout(30, TimeUnit.SECONDS)
+									       .pollingEvery(5, TimeUnit.SECONDS)
+									       .ignoring(NoSuchElementException.class);
+								   		
 								   //TODO: move it to general function
 									   logs.debug(MessageFormat.format(LoggingMsg.CLICKING_SEL, byAction.toString()));
 									   JavascriptExecutor jse = (JavascriptExecutor)getDriver();
@@ -536,7 +505,7 @@ public class SelectorUtil extends SelTestCase {
 											   return driver.findElement(byAction);
 										   }});
 									    logs.debug("browser..."+ browser);
-									   if(browser.contains("firefox") )
+									   if(browser.contains(GlobalVariables.browsers.firefox) )
 									   {
 										   logs.debug("clicking..."+ browser);
 										   field2.click();
@@ -554,19 +523,10 @@ public class SelectorUtil extends SelTestCase {
 							   if (field.isSelected())
 							   {
 								   logs.debug(MessageFormat.format(LoggingMsg.CHECKING_UNCHECKING_MSG,"un",""));
-								   Wait<WebDriver> wait = null;
-								   if(browser.contains("firefox") ) {
-									   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-										       .withTimeout(40, TimeUnit.SECONDS)
-										       .pollingEvery(5, TimeUnit.SECONDS)
-										       .ignoring(NoSuchElementException.class);
-								   }
-								   else {
-									   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-										       .withTimeout(30, TimeUnit.SECONDS)
-										       .pollingEvery(5, TimeUnit.SECONDS)
-										       .ignoring(NoSuchElementException.class);   
-								   }
+								   Wait<WebDriver> wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
+									       .withTimeout(30, TimeUnit.SECONDS)
+									       .pollingEvery(5, TimeUnit.SECONDS)
+									       .ignoring(NoSuchElementException.class);
 								   		
 								 //	TODO: move this to function 
 									   logs.debug(MessageFormat.format(LoggingMsg.CLICKING_SEL, byAction.toString()));
@@ -578,7 +538,7 @@ public class SelectorUtil extends SelTestCase {
 											   return driver.findElement(byAction);
 										   }});
 									    logs.debug("browser..."+ browser);
-									   if(browser.contains("firefox")  )
+									   if(browser.contains(GlobalVariables.browsers.firefox)  )
 									   {
 										   logs.debug("clicking..."+ browser);
 										   field2.click();
@@ -620,19 +580,10 @@ public class SelectorUtil extends SelTestCase {
 						   try 
 						   {
 							   if (value.isEmpty()) {
-								   Wait<WebDriver> wait = null;
-								   if(browser.contains("firefox") ) {
-									   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-										       .withTimeout(40, TimeUnit.SECONDS)
-										       .pollingEvery(5, TimeUnit.SECONDS)
-										       .ignoring(NoSuchElementException.class);
-								   }
-								   else {
-									   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-										       .withTimeout(30, TimeUnit.SECONDS)
-										       .pollingEvery(5, TimeUnit.SECONDS)
-										       .ignoring(NoSuchElementException.class);   
-								   }
+								   Wait<WebDriver> wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
+									       .withTimeout(30, TimeUnit.SECONDS)
+									       .pollingEvery(5, TimeUnit.SECONDS)
+									       .ignoring(NoSuchElementException.class);
 								   		//TODO: move this to function 
 								   
 									   logs.debug(MessageFormat.format(LoggingMsg.CLICKING_SEL, byAction.toString()));
@@ -644,7 +595,7 @@ public class SelectorUtil extends SelTestCase {
 											   return driver.findElement(byAction);
 										   }});
 									    logs.debug("browser..."+ browser);
-									   if(browser.contains("firefox")  )
+									   if(browser.contains(GlobalVariables.browsers.firefox)  )
 									   {
 										   logs.debug("clicking..."+ browser);
 										   field2.click();
@@ -671,27 +622,27 @@ public class SelectorUtil extends SelTestCase {
 //						   for(int i=1; i<options.size(); i++) {
 //						   	    logs.debug(options.get(i).getText());
 //							}
-						   String textVal= "";
-						   try {
-							   if (!value.isEmpty()) {
-								   List<WebElement> options = select.getOptions();
-								   for(int i=0; i<options.size(); i++)
-								   {
-									   // logs.debug(options.get(i).getText().trim());
-									   if (options.get(i).getText().toLowerCase().trim().contains(value.toLowerCase()) && !value.equals(""))
-									   {
-										   logs.debug(MessageFormat.format(LoggingMsg.SELECTED_INDEX, i )); 
-										   select.selectByIndex(i);
-										   break;
-									   }
-								   }
-							   }
-								   else
-							   {
-								   textVal = select.getFirstSelectedOption().getText();
-								   logs.debug("text is :" + textVal);
-							   }
-						   }
+						String textVal = "";
+						try {
+							if (!value.isEmpty() && !value.contains("FFF")) {
+								List<WebElement> options = select.getOptions();
+								for (int i = 0; i < options.size(); i++) {
+									// logs.debug(options.get(i).getText().trim());
+									if (options.get(i).getText().toLowerCase().trim().contains(value.toLowerCase())
+											&& !value.equals("")) {
+										logs.debug(MessageFormat.format(LoggingMsg.SELECTED_INDEX, i));
+										select.selectByIndex(i);
+										break;
+									}
+								}
+							} else if (value.contains("FFF")) {
+								String index = value.split("FFF")[1];
+								logs.debug("Direct selection "+MessageFormat.format(LoggingMsg.SELECTED_INDEX, index));
+								select.selectByIndex(Integer.parseInt(index));
+							} else {
+								textVal = select.getFirstSelectedOption().getText();
+							}
+						}
 						   catch(Exception e)
 						   {
 							   logs.debug(LoggingMsg.TRY_ALT_WAY_MSG);
@@ -734,6 +685,11 @@ public class SelectorUtil extends SelTestCase {
 	    	LinkedHashMap<String, LinkedHashMap> webelementsInfo = initializeSelectorsAndDoActions(new ArrayList<String>(subStrArr), valuesArr, false);
 	    	
 	    	List <WebElement> items = getDriver().findElements((By) webelementsInfo.get(subStrArr.get(0)).get("by"));
+	    	if (items.size()==0)
+	    		return false;
+	    	
+	    	JavascriptExecutor jse = (JavascriptExecutor)getDriver();
+			jse.executeScript("arguments[0].scrollIntoView(false)", items.get(0)); 
 	    	boolean isDisplayed = true;
     		if (!items.get(0).isDisplayed())
     			isDisplayed = false;
@@ -758,36 +714,36 @@ public class SelectorUtil extends SelTestCase {
 	    }
 	    
 	    @SuppressWarnings({ "rawtypes", "unused" })
-	public static boolean isNotDisplayed(List<String> subStrArr) throws Exception {
-		getCurrentFunctionName(true);
-		boolean isNotDisplayed = false;
-
-		try {
-			List<String> valuesArr = new ArrayList<String>();
-			valuesArr.add("");
-			LinkedHashMap<String, LinkedHashMap> webelementsInfo = initializeSelectorsAndDoActions(
-					new ArrayList<String>(subStrArr), valuesArr, false);
-			return isNotDisplayed;
-
-		} catch (NoSuchElementException e) {
-			isNotDisplayed = true;
-			return isNotDisplayed;
-		}
-	}
-
-	@SuppressWarnings("rawtypes")
-	public static String getAttr(List<String> subStrArr, String attr) throws Exception {
-		getCurrentFunctionName(true);
-		List<String> valuesArr = new ArrayList<String>();
-		valuesArr.add("");
-		LinkedHashMap<String, LinkedHashMap> webelementsInfo = initializeSelectorsAndDoActions(
-				new ArrayList<String>(subStrArr), valuesArr, false);
-		List<WebElement> items = getDriver().findElements((By) webelementsInfo.get(subStrArr.get(0)).get("by"));
-		String attrValue = items.get(0).getAttribute(attr);
-		getCurrentFunctionName(false);
-		return attrValue;
-	}
-
+		public static boolean isNotDisplayed(List<String> subStrArr) throws Exception
+	    {
+	    	getCurrentFunctionName(true);
+	    	boolean isNotDisplayed = false;
+	    	
+			try {
+				List<String> valuesArr = new ArrayList<String>();
+		    	valuesArr.add("");
+		    	LinkedHashMap<String, LinkedHashMap> webelementsInfo = initializeSelectorsAndDoActions(new ArrayList<String>(subStrArr), valuesArr, false);
+				return isNotDisplayed;
+				
+				}catch (NoSuchElementException e) {
+					isNotDisplayed = true;
+					return isNotDisplayed;
+				}
+	    }
+	    
+	    @SuppressWarnings("rawtypes")
+		public static String getAttr(List<String> subStrArr,String attr) throws Exception
+	    {
+	    	getCurrentFunctionName(true);
+	    	List<String> valuesArr = new ArrayList<String>();
+	    	valuesArr.add("");
+	    	LinkedHashMap<String, LinkedHashMap> webelementsInfo = initializeSelectorsAndDoActions(new ArrayList<String>(subStrArr), valuesArr, false);
+	    	List <WebElement> items = getDriver().findElements((By) webelementsInfo.get(subStrArr.get(0)).get("by"));
+	    	String attrValue = items.get(0).getAttribute(attr);
+	    	getCurrentFunctionName(false);
+			return attrValue;
+	    }
+	    
 	@SuppressWarnings("rawtypes")
 	public static String getAttr(List<String> subStrArr, String attr, int index) throws Exception {
 		getCurrentFunctionName(true);
@@ -801,22 +757,34 @@ public class SelectorUtil extends SelTestCase {
 		return attrValue;
 	}
 
-	 public Wait<WebDriver> waitForElementToLoad(Wait<WebDriver> wait) {
-		 String browser = SelTestCase.getBrowserName();
-		   if(browser.contains("firefox") ) {
-			   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-				       .withTimeout(40, TimeUnit.SECONDS)
-				       .pollingEvery(5, TimeUnit.SECONDS)
-				       .ignoring(NoSuchElementException.class);
-		   }
-		   else {
-			   wait = new FluentWait<WebDriver>(SelTestCase.getDriver())
-				       .withTimeout(30, TimeUnit.SECONDS)
-				       .pollingEvery(5, TimeUnit.SECONDS)
-				       .ignoring(NoSuchElementException.class);   
-		   }
-		return wait;
-	    	}
+	@SuppressWarnings("rawtypes")
+	public static WebElement getNthElement(List<String> subStrArr, int index) throws Exception
+	{
+	  	getCurrentFunctionName(true);
+		List<String> valuesArr = new ArrayList<String>();
+		valuesArr.add("");
+		LinkedHashMap<String, LinkedHashMap> webelementsInfo = initializeSelectorsAndDoActions(new ArrayList<String>(subStrArr), valuesArr, false);
+		List <WebElement> items = getDriver().findElements((By) webelementsInfo.get(subStrArr.get(0)).get("by"));
+		
+		JavascriptExecutor jse1 = (JavascriptExecutor)getDriver();
+		jse1.executeScript("arguments[0].scrollIntoView(false)", items.get(index)); 
+		
+		getCurrentFunctionName(false);
+		return items.get(index);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static List<WebElement> getAllElements(List<String> subStrArr) throws Exception
+	{
+	  	getCurrentFunctionName(true);
+		List<String> valuesArr = new ArrayList<String>();
+		valuesArr.add("");
+		LinkedHashMap<String, LinkedHashMap> webelementsInfo = initializeSelectorsAndDoActions(new ArrayList<String>(subStrArr), valuesArr, false);
+		List <WebElement> items = getDriver().findElements((By) webelementsInfo.get(subStrArr.get(0)).get("by"));
+		
+		getCurrentFunctionName(false);
+		return items;
+	}
 	
 	@SuppressWarnings("rawtypes")
 	public static void typeText(List<String> subStrArr, String value) throws Exception {
@@ -859,19 +827,6 @@ public class SelectorUtil extends SelTestCase {
 		getCurrentFunctionName(false);
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public static WebElement getNthElement(List<String> subStrArr, int index) throws Exception {
-		getCurrentFunctionName(true);
-		List<String> valuesArr = new ArrayList<String>();
-		valuesArr.add("");
-		LinkedHashMap<String, LinkedHashMap> webelementsInfo = initializeSelectorsAndDoActions(
-				new ArrayList<String>(subStrArr), valuesArr, false);
-		List<WebElement> items = getDriver().findElements((By) webelementsInfo.get(subStrArr.get(0)).get("by"));
-
-		getCurrentFunctionName(false);
-		return items.get(index);
-	}
-	
 	@SuppressWarnings({ "unused", "rawtypes" })
 	public static Element returnHTMLDoc(LinkedHashMap<String, LinkedHashMap> webElementsInfo){
 		 if ((webElementsInfo.toString().contains("parentiframe"))) {
@@ -887,30 +842,12 @@ public class SelectorUtil extends SelTestCase {
 			Element htmlDoc = doc.select("html").first();
 			return htmlDoc;
 			
-//			//TODO Return to the parent iframe after switching to the sub-windows.
-//			String iframe = webElementsInfo.toString().split(",")[0].replace("{iframe", "").trim();
-//			for(int c = 0 ;c < iframe.split("_").length; c++) 
-//		    	Document doc = Jsoup.parse(getDriver().switchTo().frame(iframe.split("_")[c]).getPageSource());
-//				Element htmlDoc = doc.select("html").first();
-//				return htmlDoc;
 		 }else{
 			Document doc = Jsoup.parse(SelTestCase.getDriver().getPageSource());
 			Element htmlDoc = doc.select("html").first();
 			return htmlDoc;
 		}
 	 }
-	@SuppressWarnings("rawtypes")
-	public static List<WebElement> getAllElements(List<String> subStrArr) throws Exception {
-		getCurrentFunctionName(true);
-		List<String> valuesArr = new ArrayList<String>();
-		valuesArr.add("");
-		LinkedHashMap<String, LinkedHashMap> webelementsInfo = initializeSelectorsAndDoActions(
-				new ArrayList<String>(subStrArr), valuesArr, false);
-		List<WebElement> items = getDriver().findElements((By) webelementsInfo.get(subStrArr.get(0)).get("by"));
-
-		getCurrentFunctionName(false);
-		return items;
-	}
 
 	@SuppressWarnings("rawtypes")
 	public static LinkedHashMap<String, LinkedHashMap> initializeSelectorsAndDoActions(List<String> subStrArr,

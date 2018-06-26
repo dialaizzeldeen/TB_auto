@@ -82,7 +82,6 @@ public class Base_PDP extends SelTestCase {
 			Testlogs.get().debug("url key value " + (String) productDetails.get(PDP.keys.url));
 			getDriver().get((String) productDetails.get(PDP.keys.url));
 			Testlogs.get().debug("selecting amount");
-//Diala izz
 			String ToName =(String) usersdetails.get(Registration.keys.firstName);
             String amount=(String)  productDetails.get(PDP.keys.price);
             String FromName= RandomUtilities.getRandomName();
