@@ -35,7 +35,7 @@ public class HomePage extends SelTestCase {
 		List<String> valuesArr = new ArrayList<String>();
 		logs.debug(MessageFormat.format(LoggingMsg.CLICKING_CLOSE_ICON, "subcription closes icon"));
 		subStrArr.add(HomePageSelectors.subcriptionCloseIcon);
-		valuesArr.add("");
+		valuesArr.add("index,1");
 		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 		getCurrentFunctionName(false);
 
