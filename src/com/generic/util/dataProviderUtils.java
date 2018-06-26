@@ -22,11 +22,11 @@ public class dataProviderUtils {
 	}
 
 	// get the data from xls file
-	public Object[][] getData(String testName) {
+	public Object[][] getData(String testName) throws Exception {
 		return getData(testName, 2);
 	}
 
-	public Object[][] getData(String testName, int startingRow) {
+	public Object[][] getData(String testName, int startingRow) throws Exception{
 		/*
 		 * if the sheet is regression then the sheet name should contains the
 		 * "regression" word and in col 2 should have the property runTest (empty not->
@@ -35,10 +35,8 @@ public class dataProviderUtils {
 		 */
 		// starting row 1 to rows sheets
 		logs.debug("Pulling data from sheet: "+ testName );
-		if (SelTestCase.getDatatable() == null) {
-			SelTestCase.setDatatable(new Xls_Reader(EnvironmentFiles.getDataSheetPath()));
-		}
-		int rows = SelTestCase.getDatatable().getRowCount(testName) - 1;
+		Xls_Reader dataTable = new Xls_Reader(EnvironmentFiles.getDataSheetPath());
+		int rows = dataTable.getRowCount(testName) - 1;
 		// if empty sheet return empty data
 		if (rows <= 0) {
 			logs.debug("No data - empty sheet");
@@ -46,20 +44,21 @@ public class dataProviderUtils {
 			return testData;
 		}
 
-		rows = SelTestCase.getDatatable().getRowCount(testName);
-		int cols = SelTestCase.getDatatable().getColumnCount(testName);
+		rows = dataTable.getRowCount(testName);
+		int cols = dataTable.getColumnCount(testName);
 
-		logs.debug(MessageFormat.format(LoggingMsg.TEST_NAME, testName) + "this sheet contains rows:"+rows+" and cols:"+cols);
+		logs.debug(MessageFormat.format(LoggingMsg.TEST_NAME, testName) + " this sheet contains rows:"+rows+" and cols:"+cols);
 		Object data[][] = new Object[rows - (startingRow - 1)][cols];// rows -1 since we dont have to include header
 
 		int ignoredCases = 0;
 
 		for (int rowNum = startingRow; rowNum <= rows; rowNum++) {
 			if (testName.contains("Regression") || testName.contains("Setup") ) {
-				if (SelTestCase.getDatatable().getCellData(testName, 1, 1).contains("runTest")
-						&& !SelTestCase.getDatatable().getCellData(testName, 1, rowNum).equals("")) {
+				if (dataTable.getCellData(testName, 1, 1).contains("runTest")
+						&& !dataTable.getCellData(testName, 1, rowNum).equals("")) {
 					for (int colNum = 0; colNum < cols; colNum++) {
-						data[rowNum - startingRow][colNum] = SelTestCase.getDatatable().getCellData(testName, colNum,
+						Thread.sleep(100);
+						data[rowNum - startingRow][colNum] = dataTable.getCellData(testName, colNum,
 								rowNum);
 					}
 				} else {
@@ -70,7 +69,7 @@ public class dataProviderUtils {
 				}
 			} else {
 				for (int colNum = 0; colNum < cols; colNum++) {
-					data[rowNum - startingRow][colNum] = SelTestCase.getDatatable().getCellData(testName, colNum,
+					data[rowNum - startingRow][colNum] = dataTable.getCellData(testName, colNum,
 							rowNum);
 				}
 			}
@@ -89,6 +88,9 @@ public class dataProviderUtils {
 			}
 		}
 
+		if (dataFinal.length==0)
+			throw new Exception("No Tests cases enabled in Data sheet");
+		
 		return dataFinal;
 	}
 

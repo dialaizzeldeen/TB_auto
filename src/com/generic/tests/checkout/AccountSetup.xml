@@ -7,13 +7,7 @@
 	<classes>
 		<class name="com.generic.tests.checkout.AccountsSetupUS" />
 		<class name="com.generic.tests.checkout.AccountsSetupCanada" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-		<class name="com.generic.tests.Registration_Done.CreateNewAccounts" />
-=======
->>>>>>> 9e27e1a6d23438899df9f419315ab8f999e578f4
-=======
->>>>>>> 5e067e529774ccdb04a21a650f35a529e6636338
+		<class name="com.generic.tests.Registration.CreateNewAccounts" />
 	</classes>
 </test><!-- Test -->
 
@@ -22,13 +16,7 @@
 <classes>
 	<class name="com.generic.tests.checkout.AccountsSetupUS" />
 	<class name="com.generic.tests.checkout.AccountsSetupCanada" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-	<class name="com.generic.tests.Registration_Done.CreateNewAccounts" />
-=======
->>>>>>> 9e27e1a6d23438899df9f419315ab8f999e578f4
-=======
->>>>>>> 5e067e529774ccdb04a21a650f35a529e6636338
+	<class name="com.generic.tests.Registration.CreateNewAccounts" />
 </classes>
 </test><!-- Test -->
 </suite> <!-- Suite -->

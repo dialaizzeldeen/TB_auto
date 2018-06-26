@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Account Setup" parallel="tests" thread-count="10" data-provider-thread-count="3">
+<test name="account chrome">
+<parameter name="browserName" value="chrome"></parameter>
+<classes>
+	<class name="com.generic.tests.checkout.AccountsSetupUS" />
+	<class name="com.generic.tests.checkout.AccountsSetupCanada" />
+	<class name="com.generic.tests.Registration.CreateNewAccounts" />
+</classes>
+</test><!-- Test -->
+
+<test name="account firefox">
+<parameter name="browserName" value="firefox"></parameter>
+<classes>
+<class name="com.generic.tests.checkout.AccountsSetupUS" />
+<class name="com.generic.tests.checkout.AccountsSetupCanada" />
+<class name="com.generic.tests.Registration.CreateNewAccounts" />
+</classes>
+</test><!-- Test -->
+
+<test name="account _ mobile_Nexus 5\"">
+<parameter name="browserName" value="mobile_Nexus 5"></parameter>
+<classes>
+<class name="com.generic.tests.checkout.AccountsSetupUS" />
+<class name="com.generic.tests.checkout.AccountsSetupCanada" />
+<class name="com.generic.tests.Registration.CreateNewAccounts" />
+</classes>
+</test><!-- Test -->
+</suite> <!-- Suite -->

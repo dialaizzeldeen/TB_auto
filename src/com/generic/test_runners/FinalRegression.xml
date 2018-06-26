@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><suite allow-return-values="false" configfailurepolicy="skip" data-provider-thread-count="2" group-by-instances="false" guice-stage="DEVELOPMENT" junit="false" name="Suite" parallel="tests" preserve-order="true" skipfailedinvocationcounts="false" thread-count="2">
+
+	</test><test name="PLP validation Chrome ">
+		<parameter name="browserName" value="Chrome"/>
+		<classes>
+              <class name="com.generic.tests.Search_PLP.PLP_Base"/>
+		</classes>
+	</test></suite>
