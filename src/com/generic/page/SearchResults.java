@@ -5,9 +5,6 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
-import com.generic.selector.CheckOutSelectors;
-import com.generic.selector.PLPSelectors;
 import com.generic.selector.SearchResultSelectors;
 import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
@@ -94,8 +91,7 @@ public class SearchResults extends SelTestCase {
 		boolean isDisplayed = SelectorUtil.isDisplayed(subStrArr, index);
 		logs.debug("images check result is " + isDisplayed);
 		getCurrentFunctionName(false);
-		return isDisplayed;
-		
+		return isDisplayed;		
 	}
     
     public static String getNthResponsiveListItemImg(int index) throws Exception {
@@ -107,7 +103,6 @@ public class SearchResults extends SelTestCase {
 		logs.debug("image src is: " + src);
 		getCurrentFunctionName(false);
 		return src;
-		
 	}
     
     
@@ -121,7 +116,6 @@ public class SearchResults extends SelTestCase {
 		logs.debug("Title Of Item" +index+": "+ title);
 		getCurrentFunctionName(false);
 		return title;
-		
 	}
     
     public static String getPriceOfItem(int index) throws Exception {
@@ -133,8 +127,7 @@ public class SearchResults extends SelTestCase {
 		String price = SelectorUtil.getTextOfItemNumber(subStrArr,index);
 		logs.debug("Price Of Item" +index+": "+ price);
 		getCurrentFunctionName(false);
-		return price;
-		
+		return price;	
 	}
     
     public static void clickSearchBtn() throws Exception {
@@ -432,4 +425,17 @@ public class SearchResults extends SelTestCase {
 		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 		getCurrentFunctionName(false);
 	}
+
+	public static void clickOnFirstProduct() throws Exception {
+		// TODO Auto-generated method stub
+		getCurrentFunctionName(true);
+		List<String> subStrArr = new ArrayList<String>();
+		List<String> valuesArr = new ArrayList<String>();
+		logs.debug(MessageFormat.format(LoggingMsg.CLICKING_SEL, SearchResultSelectors.searchMenuItems));
+		subStrArr.add(SearchResultSelectors.searchMenuItems);
+		valuesArr.add("");
+		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		getCurrentFunctionName(false);
+	}
+	
 }

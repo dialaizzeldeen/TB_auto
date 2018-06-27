@@ -65,7 +65,7 @@ public class QuickShopValidation extends SelTestCase {
 					String priceAtPLPPage = QuickShop.getGridViewFirstProductPrice();
 					
 					QuickShop.clickQuickshopBtn();
-					
+					Thread.sleep(1000);
 					String titleAtQuickShop = QuickShop.getQuickshopDes();
 					String priceAtQuickShop = QuickShop.getQuickshopPrice();
 					
@@ -91,10 +91,12 @@ public class QuickShopValidation extends SelTestCase {
 					sassert().assertTrue(QuickShop.getCurrentNameOfSelectedColor().equals(QuickShop.getNameOfSelectedColor()), "Color name not similar for both");
 
 					QuickShop.clickQuickshopCloseBtn();					
-
+					Thread.sleep(1000);
 					QuickShop.clickQuickshopBtn();
+					Thread.sleep(1000);
 					String descriptionATQuickShop = QuickShop.getQuickshopProductDescription();
 					QuickShop.clickQuickshopFullDetails();
+					Thread.sleep(1000);
 					sassert().assertTrue(QuickShop.getPDPTitle().equals(titleAtQuickShop), "Title not similar for both (PDP,QS)");
 					sassert().assertTrue(QuickShop.getPDPPrice().equals(priceAtQuickShop), "Price not similar for both (PDP,QS)");
 					sassert().assertTrue(QuickShop.getPDPDesc().equals(descriptionATQuickShop), "Desc not similar for both (PDP,QS)");

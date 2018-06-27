@@ -830,6 +830,19 @@ public class SelectorUtil extends SelTestCase {
 		getCurrentFunctionName(false);
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public static void clickButton(List<String> subStrArr, int index) throws Exception {
+		getCurrentFunctionName(true);
+		List<String> valuesArr = new ArrayList<String>();
+		valuesArr.add("");
+		LinkedHashMap<String, LinkedHashMap> webelementsInfo = initializeSelectorsAndDoActions(
+				new ArrayList<String>(subStrArr), valuesArr, false);
+
+		List<WebElement> items = getDriver().findElements((By) webelementsInfo.get(subStrArr.get(0)).get("by"));
+		items.get(index).click();
+		getCurrentFunctionName(false);
+	}
+	
 	@SuppressWarnings({ "unused", "rawtypes" })
 	public static Element returnHTMLDoc(LinkedHashMap<String, LinkedHashMap> webElementsInfo){
 		 if ((webElementsInfo.toString().contains("parentiframe"))) {

@@ -1,6 +1,7 @@
 package com.generic.tests.Search;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -8,24 +9,20 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.xml.XmlTest;
 
-import java.util.Arrays;
+import com.generic.page.HomePage;
+import com.generic.page.SearchResults;
 import com.generic.setup.Common;
 import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
 import com.generic.setup.SheetVariables;
-import com.generic.util.dataProviderUtils;
 import com.generic.util.ReportUtil;
 import com.generic.util.SASLogger;
-import com.generic.page.PLP;
-import com.generic.page.SearchResults;
+import com.generic.util.dataProviderUtils;
 
 public class SearchResultValidation extends SelTestCase {
-
-	// used sheet in test
-	public static final String testDataSheet = SheetVariables.SearchSheet;
-	// int ExpectedNumberOfMenuItems = Integer.parseInt(SelTestCase.getCONFIG().getProperty("ExpectedNumberOfSearchMenuItems"));
-	int ExpectedNumberOfMenuItems = 4;
 	
+	public static final String testDataSheet = SheetVariables.SearchSheet;
+	int ExpectedNumberOfMenuItems = 4;
 	private static XmlTest testObject;
 
 	private static ThreadLocal<SASLogger> Testlogs = new ThreadLocal<SASLogger>();
@@ -36,7 +33,7 @@ public class SearchResultValidation extends SelTestCase {
 	}
 	
 	@DataProvider(name = "Search", parallel = true)
-	// concurrency maintenance on sheet reading
+
 	public static Object[][] loadTestData() throws Exception {
 		getBrowserWait(testObject.getParameter("browserName"));
 
@@ -45,125 +42,179 @@ public class SearchResultValidation extends SelTestCase {
 		Testlogs.get().debug(Arrays.deepToString(data).replace("\n", "--"));
 		return data;
 	}
-
+	
 	@Test(dataProvider = "Search")
-	public void verifySearchResultsPage(String caseId, String runTest, String desc, String searchValues, String sortOptions1,
-			String sortOptions2, String userLocationStore, String pickupNthIconIndex, String pickupInStoreQty,String plpFilter, String nthProductItem,
-			String nthAppliedFacet, String SdoClickAddToCart, String SdoClickPickupInStore, String SdoClickNthProductItem, String SdoClickCheckoutBtn, String SdoClickCloseBtn) throws Exception {
-		
-		boolean doClickAddToCart = Boolean.valueOf(SdoClickAddToCart);
-		boolean doClickPickupInStore = Boolean.valueOf(SdoClickPickupInStore);
-		boolean doClickNthProductItem = Boolean.valueOf(SdoClickNthProductItem);
-		boolean doClickCheckoutBtn = Boolean.valueOf(SdoClickCheckoutBtn);
-		boolean doClickCloseBtn = Boolean.valueOf(SdoClickCloseBtn);
+	public void verifySearchResultsPage(String caseId, String runTest, String desc, 
+			String searchValues, String country, String currency, String click,
+			String searchResultView, String SearchResultFacets) throws Exception {
 		
 		Testlogs.set(new SASLogger("Search" + getBrowserName()));
-		// Important to add this for logging/reporting
+
 		setTestCaseReportName("Search Case");
 		logCaseDetailds(MessageFormat.format(LoggingMsg.TEST_CASE_DESC, testDataSheet + "." + caseId,
 				this.getClass().getCanonicalName(), desc));
 		
-		try {
+		try{
+			
+			Thread.sleep(3000);
+			HomePage.closeSubcriptionPopup();
+			Thread.sleep(1000);
+			
+			if(desc.equals("Search results page with valid product")){
+				
+				String[] curr = currency.split("\n");
+				SearchResults.clickShipto();
+				Thread.sleep(1000);
+				SearchResults.changeCountryAndUpdate(country);
+								
+				SearchResults.clickSearchBtn();
+				SearchResults.typeSearchText(searchValues);	
+				Thread.sleep(1000);
 
-//			if (!desc.contains("No Results")) {
-//				SearchResults.typeSearchText(searchValues);
-//				Thread.sleep(1000);
-//				// verify ò Search Menu Items
-//				int numberOfMenuItems = Integer.parseInt(SearchResults.getNumberOfMenuItems());
-//				Thread.sleep(1000);
-//				sassert().assertTrue(numberOfMenuItems == ExpectedNumberOfMenuItems);
-//				// Type again because getNumberOfMenuItems will click on the first element.
-//				 SearchResults.typeSearchText(searchValues);
-//				Thread.sleep(500);
-//
-//				for (int index = 0; index < numberOfMenuItems; index++) {
-//					// Verify image, name and price for each item.
-//					for (int c = 0; c < 3; c++) {
-//						SearchResults.getNthResponsiveListItemColumn(c, index);
-//						 SearchResults.getNthResponsiveListItemImg(index);
-//						sassert().assertTrue(SearchResults.checkNthResponsiveListItemImg(index),"<font color=#f442cb>NOT All product images are ok</font>");
-//
-//					}
-//				}
-//				Thread.sleep(1500);
-//				SearchResults.typeSearchTextAndPressEnter(searchValues);
-//				String ExpectedText = MessageFormat.format(LoggingMsg.SearchResulstHeader_Search, '"', searchValues,
-//						'"');
-//				String ActualText = SearchResults.getSearchResultsHeader();
-//				String ErrorMsg = MessageFormat.format(LoggingMsg.ACTUAL_EXPECTED_ERROR, ActualText, ExpectedText);
-//				sassert().assertTrue(ActualText.contains(ExpectedText), ErrorMsg);
-//
-//				PLP.selectSortOptions1ByValue(sortOptions1);
-//				Thread.sleep(3000);
-//				
-//				PLP.selectSortOptions2ByValue(sortOptions2);
-//				Thread.sleep(3000);
-//				
-////				String productsNum = PLP.getNumberOfproducts();
-////				logs.debug(MessageFormat.format(LoggingMsg.NUMBER_OF_PRODUCTS, productsNum));
-//				
-//				sassert().assertTrue(PLP.doesDisplayedProductsNumTextMatchesProductsDisplayed());
-//			
-//				PLP.typeUserLocationStore(userLocationStore);
-//				Thread.sleep(4000);
-//				
-//				PLP.clickMoreStores();
-//				Thread.sleep(3000);
-//				
-//			
-//				
-//			//	PLP.clickleftNavCheckBoxCheckBox("London Hospital");
-//				sassert().assertTrue(PLP.compareAppliedFilterWithDisplayedProductNumber(plpFilter));
-//
-//				if (Boolean.valueOf(doClickAddToCart)) {
-//					SearchResults.clickAddToCart();
-//					Thread.sleep(3000);
-//					String productPriceAddedToCart = SearchResults.getPLPProductPriceFromCartBag();
-//					logs.debug(MessageFormat.format(LoggingMsg.PLP_PRODUCT_PRICE, productPriceAddedToCart));
-//					String productPrice = SearchResults.getPLPProductPrice();
-//					logs.debug(MessageFormat.format(LoggingMsg.PLP_PRODUCT_PRICE, productPrice));
-//					Thread.sleep(2000);
-//					if (Boolean.valueOf(doClickCloseBtn)) {
-//						Thread.sleep(1000);
-//						PLP.clickCboxCloseBtn();
-//					} else if (Boolean.valueOf(doClickCheckoutBtn)) {
-//						Thread.sleep(1000);
-//						PLP.clickCheckoutBtn();
-//					} else {
-//						Thread.sleep(1000);
-//						PLP.clickContinueShoppingBtn();
-//					}
-//				}
-//
-//				if (Boolean.valueOf(doClickPickupInStore)) {
-//					SearchResults.clickProductPickupInStoreButton();
-//					PLP.typePickUpInStoreLocationForSearch(userLocationStore);
-//					PLP.clickPickupNthAccessibleTabIcon(pickupNthIconIndex);
-//					Thread.sleep(1500);
-//					SearchResults.typePickUpInStoreQty(pickupInStoreQty);
-//					SearchResults.clickPickUpInStoreAddToBagBtn();
-//					PLP.clickCboxCloseBtn();
-//					Thread.sleep(2000);
-//				}
-//
-//				if (Boolean.valueOf(doClickNthProductItem)) {
-//					PLP.clickNthProductItem(nthProductItem);
-//				}
-//			} else {
-//
-//				SearchResults.typeSearchTextAndPressEnter(searchValues);
-//				Thread.sleep(1000);
-//
-//				String ExpectedText = MessageFormat.format(LoggingMsg.SearchResulstHeader_Search_Empty, searchValues);
-//				String ActualText = SearchResults.getSearchResultsHeaderSearchEmpty();
-//				String ErrorMsg = MessageFormat.format(LoggingMsg.ACTUAL_EXPECTED_ERROR, ActualText, ExpectedText);
-//				sassert().assertTrue(ActualText.contains(ExpectedText), ErrorMsg);
+				int numberOfMenuItems = Integer.parseInt(SearchResults.getNumberOfMenuItems());
+				sassert().assertTrue(numberOfMenuItems == ExpectedNumberOfMenuItems);
+				
+				for (int index = 0; index < numberOfMenuItems; index++) {
 
-//			}
+						SearchResults.getNthResponsiveListItemColumn(0, index);
+						SearchResults.getNthResponsiveListItemImg(index);
+						String title = SearchResults.getTitleOfItem(index);
+						String price = SearchResults.getPriceOfItem(index);
+					    sassert().assertTrue(title.toLowerCase().contains(searchValues.toLowerCase()),"<font color=#f442cb>NOT All title are ok</font>");
+					    sassert().assertTrue(price.contains(curr[1]),"<font color=#f442cb>NOT All price are ok</font>");
+					    sassert().assertTrue(SearchResults.checkNthResponsiveListItemImg(index),"<font color=#f442cb>NOT All product images are ok</font>");				
+				}
+				
+				if(click.equals("True")){
+					SearchResults.typeSearchTextAndPressEnter(searchValues);
+					
+				if (!"".equals(searchResultView)){
+					if (searchResultView.contains("Grid")) {						
+						sassert().assertTrue(SearchResults.checkGridViewSelected(), "Grid view is not selected by default");
+						sassert().assertTrue(SearchResults.checkGridViewProducts(), "Products are not displayed as expected");
+						sassert().assertTrue(SearchResults.checkGridViewQuickshop(), "Quickshop button is displayed as expected");
+						sassert().assertTrue(SearchResults.checkGridViewProductDes(), "Product Name is not displayed as expected");
+						sassert().assertTrue(SearchResults.checkGridViewProductPrice(), "Product price is not displayed as expected");
+						SearchResults.clickGridViewQuickshop();
+						Thread.sleep(3000);
+						sassert().assertTrue(SearchResults.checkQuickshopModalContent(), "Quickshop modal is not displayed as expected");					
+					}
+					else if (searchResultView.contains("List")) {
+						sassert().assertTrue(SearchResults.checkGridViewSelected(), "Grid view is not selected by default");
+						SearchResults.clickListView();
+						Thread.sleep(3000);
+						sassert().assertTrue(SearchResults.checkListViewSelected(), "List view is not selected as expected");
+						sassert().assertTrue(SearchResults.checkListViewProducts(), "Products are not displayed as expected");
+						sassert().assertTrue(SearchResults.checkListViewQuickshop(), "Quickshop button is displayed as expected");
+						sassert().assertTrue(SearchResults.checkListViewProductTitle(), "Product Name is not displayed as expected");
+						sassert().assertTrue(SearchResults.checkListViewProductPrice(), "Product price is not displayed as expected");
+						SearchResults.clickListViewQuickshop();
+						Thread.sleep(3000);
+						sassert().assertTrue(SearchResults.checkQuickshopModalContent(), "Quickshop modal is not displayed as expected");						
+						sassert().assertTrue(SearchResults.checkListViewSelected(), "Listview is not persist for all categories");
+					}
+				}
+				
+				if (!"".equals(SearchResultFacets)) {
+					if (SearchResultFacets.contains("Category")) {
+						if (SearchResults.isCategoryFilterAvailable()) {
+							int itemsNumber = SearchResults.countProductsInPage();
+							SearchResults.clickFirstCategoryFilter();
+							Thread.sleep(2000);
+							sassert().assertTrue(SearchResults.countProductsInPage() <= itemsNumber, "Category Filter is not applied correctly");
+						}
+					}				
+				}
+			}
+				Thread.sleep(1500);
+		}
+			else if(desc.contains("currency")){		
+				String[] curr = currency.split("\n");
+				SearchResults.clickShipto();
+				Thread.sleep(1000);
+				SearchResults.changeCountryAndCurrencyAndUpdate(country,curr[0]);
+	
+				SearchResults.clickSearchBtn();
+				SearchResults.typeSearchText(searchValues);	
+				Thread.sleep(1000);
 
-			sassert().assertAll();
-			Common.testPass();
-		}catch (Throwable t) {
+				int numberOfMenuItems = Integer.parseInt(SearchResults.getNumberOfMenuItems());
+				sassert().assertTrue(numberOfMenuItems == ExpectedNumberOfMenuItems);
+				
+				for (int index = 0; index < numberOfMenuItems; index++) {
+						SearchResults.getNthResponsiveListItemColumn(0, index);
+						SearchResults.getNthResponsiveListItemImg(index);
+						String title = SearchResults.getTitleOfItem(index);
+						String price = SearchResults.getPriceOfItem(index);
+					    sassert().assertTrue(title.toLowerCase().contains(searchValues.toLowerCase()),"<font color=#f442cb>NOT All title are ok</font>");
+					    sassert().assertTrue(price.contains(curr[1]),"<font color=#f442cb>NOT All price are ok</font>");
+					    sassert().assertTrue(SearchResults.checkNthResponsiveListItemImg(index),"<font color=#f442cb>NOT All product images are ok</font>");				
+				}			
+				Thread.sleep(1500);
+			}
+			else if(desc.contains("three character only")){	
+				SearchResults.clickSearchBtn();
+				SearchResults.typeSearchText(searchValues);	
+				Thread.sleep(1000);
+
+				int numberOfSuggestion = Integer.parseInt(SearchResults.getNumberOfSuggestion());
+
+				int numberOfMenuItems = Integer.parseInt(SearchResults.getNumberOfMenuItems());
+				sassert().assertTrue(numberOfMenuItems == ExpectedNumberOfMenuItems);
+				
+				for (int index = 0; index < numberOfSuggestion; index++) {
+						String title = SearchResults.getTitleOfSuggestionItem(index);
+					    sassert().assertTrue(title.toLowerCase().contains(searchValues.toLowerCase()),"<font color=#f442cb>NOT All title are ok</font>");
+				}			
+				Thread.sleep(1500);
+			}
+			else if(desc.contains("first three character give a valid products")){	
+				String[] curr = currency.split("\n");
+						
+				SearchResults.clickSearchBtn();
+				SearchResults.typeSearchText(searchValues);	
+				Thread.sleep(1000);
+
+				int numberOfMenuItems = Integer.parseInt(SearchResults.getNumberOfMenuItems());
+				sassert().assertTrue(numberOfMenuItems == ExpectedNumberOfMenuItems);
+				
+				for (int index = 0; index < numberOfMenuItems; index++) {
+
+						SearchResults.getNthResponsiveListItemColumn(0, index);
+						SearchResults.getNthResponsiveListItemImg(index);
+						String title = SearchResults.getTitleOfItem(index);
+						String price = SearchResults.getPriceOfItem(index);
+					    sassert().assertTrue(title.toLowerCase().contains(searchValues.substring(0, 3).toLowerCase()),"<font color=#f442cb>NOT All title are ok</font>");
+					    sassert().assertTrue(price.contains(curr[1]),"<font color=#f442cb>NOT All price are ok</font>");
+					    sassert().assertTrue(SearchResults.checkNthResponsiveListItemImg(index),"<font color=#f442cb>NOT All product images are ok</font>");				
+				}
+				Thread.sleep(1500);
+			}
+			
+			else if(desc.contains("invalid")){		
+				SearchResults.clickSearchBtn();
+				SearchResults.typeSearchText(searchValues);	
+				Thread.sleep(1000);
+
+				int numberOfMenuItems = Integer.parseInt(SearchResults.getNumberOfMenuItems());
+				sassert().assertTrue(numberOfMenuItems == 0);
+			}
+			
+			else if(desc.contains("ID")){
+				SearchResults.clickSearchBtn();
+				SearchResults.typeSearchText(searchValues);	
+				Thread.sleep(1000);
+
+				int numberOfMenuItems = Integer.parseInt(SearchResults.getNumberOfMenuItems());
+				if(numberOfMenuItems != 0){
+					SearchResults.clickOnFirstProduct();
+					Thread.sleep(1000);
+					sassert().assertTrue(getDriver().getCurrentUrl().contains(searchValues), "ID does not match the URL");
+				}
+			}
+				sassert().assertAll();
+		}
+		catch (Throwable t) {
 			setTestCaseDescription(getTestCaseDescription());
 			Testlogs.get().debug(MessageFormat.format(LoggingMsg.DEBUGGING_TEXT, t.getMessage()));
 			t.printStackTrace();
@@ -171,8 +222,6 @@ public class SearchResultValidation extends SelTestCase {
 			Common.testFail(t, temp);
 			ReportUtil.takeScreenShot(getDriver());
 			Assert.assertTrue(false, t.getMessage());
-		}
-
+		}	
 	}
-
 }

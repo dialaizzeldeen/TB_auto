@@ -14,7 +14,7 @@ public class SearchResultSelectors {
 
 	public static final String titleOfSuggestion = "ui-menu-item-wrapper";
 	
-	public static final String searchMenuItems = "css,#ui-id-1 > li";
+	public static final String searchMenuItems = "product ui-menu-item";
 	public static final String searchMenuItemsWithSuggestion = "suggestions ui-menu-item";
 	
 	public static final String shipToBtn = "tb-modal header-ship-to-link";

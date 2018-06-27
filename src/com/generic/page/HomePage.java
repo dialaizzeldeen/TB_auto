@@ -32,18 +32,16 @@ import ru.yandex.qatools.ashot.comparison.ImageDiffer;
 public class HomePage extends SelTestCase {
 	
 	public static void closeSubcriptionPopup() throws Exception {
-		getCurrentFunctionName(true);
-		try {
-		List<String> subStrArr = new ArrayList<String>();
-		List<String> valuesArr = new ArrayList<String>();
-		logs.debug(MessageFormat.format(LoggingMsg.CLICKING_CLOSE_ICON, "subcription closes icon"));
-		subStrArr.add(HomePageSelectors.subcriptionCloseIcon);
-		valuesArr.add("");
-		try {
-			SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
-		}catch (Exception e) {
-			logs.debug("subcription popup is not appearing");
-		}
+		try{
+			getCurrentFunctionName(true);
+			List<String> subStrArr = new ArrayList<String>();
+			logs.debug(MessageFormat.format(LoggingMsg.CLICKING_CLOSE_ICON, "subcription closes icon"));
+			subStrArr.add(HomePageSelectors.subcriptionCloseIcon);
+			try {
+				SelectorUtil.clickButton(subStrArr, 1);
+			}catch (Exception e) {
+				logs.debug("subcription popup is not appearing");
+			}
 		getCurrentFunctionName(false);
 	} catch (NoSuchElementException e) {
 		logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
