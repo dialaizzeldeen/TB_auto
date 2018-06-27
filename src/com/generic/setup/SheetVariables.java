@@ -57,7 +57,7 @@ public class SheetVariables {
 	public static final String VisualTestingHPTestCaseId = "VisualTestingHP case";
 	public static final String VisualTestingCLPTestCaseId = "VisualTestingCLP case";
 	public static final String HomePageSheet = "HomePageRegression";  
-	public static final String SearchSheet = "upRegression";
+	public static final String SearchSheet = "SearchRegression";
 	public static final String QuickShopSheet = "QuickShopRegression";
 	
 	//public static final String PopupSearchSheet = "PopupSearchRegrission";
