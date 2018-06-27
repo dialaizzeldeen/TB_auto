@@ -55,7 +55,7 @@ public class SelectorUtil extends SelTestCase {
 			initializeElementsSelectorsMaps(webElementsInfo, isValidationStep, htmlDoc);
 		} catch (NoSuchElementException e) {
 			Thread.sleep(2000);
-			if (SelTestCase.getBrowserName().contains("firfox"))
+			if (SelTestCase.getBrowserName().contains(GlobalVariables.browsers.firefox))
 				Thread.sleep(2000);
 			logs.debug("Second try for getting element");
 			Document doc = Jsoup.parse(SelTestCase.getDriver().getPageSource());
@@ -475,7 +475,7 @@ public class SelectorUtil extends SelTestCase {
 								   return driver.findElement(byAction);
 							   }});
 						    logs.debug("browser..."+ browser);
-						   if(browser.contains(GlobalVariables.browsers.firefox) )
+						   if(browser.contains(GlobalVariables.browsers.firefox))
 						   {
 							   logs.debug("clicking..."+ SelTestCase.getBrowserName());
 							   field2.click();
