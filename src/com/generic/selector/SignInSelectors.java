@@ -7,10 +7,12 @@ public class SignInSelectors
 	public static final String errorMessage = "globalMessages";
 	public static final String myAccount = "My Account";
 	public static final String WelcomeMsg = "Aloha,";
+	public static final String WelcomeMsgg = "css,.flyout>div.member-login";
 	public static final String forgotPasswordBtn = "pw-modal";
 	public static final String forgottenPwdInput = "forgottenPwd.email";
 	public static final String forgotPasswordSubmitBtn = "positive btn btn-accent2 small-text";
 	public static final String alertPositiveForgottenPassword = "alert";
 	public static final String forgottenPwdEmailError = "email.errors";
-	public static final String men="Men";
+	public static final String men="Men"; 
+	public static final String signOut="Sign Out"; 
 }

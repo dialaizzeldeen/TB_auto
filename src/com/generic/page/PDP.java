@@ -12,9 +12,8 @@ import com.generic.setup.SelTestCase;
 import com.generic.util.SelectorUtil;
 
 public class PDP extends SelTestCase {
-	
-	public static class keys
-	{
+
+	public static class keys {
 		public static final String id = "id";
 		public static final String name = "name";
 		public static final String title = "title";
@@ -28,18 +27,21 @@ public class PDP extends SelTestCase {
 		public static final String reviews = "reviews";
 		public static final String rating = "rating";
 		public static final String scene7Image = "scene7Image";
-			
-	}
-	public static void getURL(String url) {
-        logs.debug("Current URL: " + url);
-	    String env = getCONFIG().getProperty("testEnvironment").split("\\.")[0];
-	    String currentenv = url.split("\\.")[0];
-		String newURL = url.replaceAll(currentenv, env);
-	    logs.debug("Expected URL: " + newURL);
-	    getDriver().get(newURL);
 
-}
-	public static void addProductsToCartAndClickCheckOut(String url, String color, String size, String qty) throws Exception {
+	}
+
+	public static void getURL(String url) {
+		logs.debug("Current URL: " + url);
+		String env = getCONFIG().getProperty("testEnvironment").split("\\.")[0];
+		String currentenv = url.split("\\.")[0];
+		String newURL = url.replaceAll(currentenv, env);
+		logs.debug("Expected URL: " + newURL);
+		getDriver().get(newURL);
+
+	}
+
+	public static void addProductsToCartAndClickCheckOut(String url, String color, String size, String qty)
+			throws Exception {
 		getURL(url);
 		getCurrentFunctionName(true);
 		if (!"".equals(color))
@@ -50,17 +52,17 @@ public class PDP extends SelTestCase {
 
 		defineQty(qty);
 		clickAddToCartBtn();
-	//	clickProceedToCheckout();
+		// clickProceedToCheckout();
 		getDriver().get(PagesURLs.getShoppingCartPage());
 		getCurrentFunctionName(false);
 	}
-	
+
 	public static void addProductsToCart(String url, String color, String size, String qty) throws Exception {
 		getURL(url);
 		getCurrentFunctionName(true);
 		if (!"".equals(color))
 			selectcolor(color);
-		
+
 		Thread.sleep(2000);
 		if (!"".equals(size))
 			selectsize(size);
@@ -70,7 +72,7 @@ public class PDP extends SelTestCase {
 		Thread.sleep(2000);
 		getCurrentFunctionName(false);
 	}
-	
+
 	public static void clickProceedToCheckout() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -82,6 +84,7 @@ public class PDP extends SelTestCase {
 		getCurrentFunctionName(false);
 
 	}
+
 	public static String getPrice() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -92,22 +95,24 @@ public class PDP extends SelTestCase {
 		getCurrentFunctionName(false);
 		return SelectorUtil.textValue.get();
 	}
-public static String getImageUrl() throws Exception {
-	getCurrentFunctionName(true);
-		/*List<String> subStrArr = new ArrayList<String>();
-		List<String> valuesArr = new ArrayList<String>();
-		subStrArr.add(PDPSelectors.image);
-		valuesArr.add("");
-		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
-		getCurrentFunctionName(false);
-		return SelectorUtil.textValue.get();*/
-	List<String> subStrArr = new ArrayList<String>();
-	subStrArr.add("pdp-main-image");
-	String url=SelectorUtil.getAttr(subStrArr, "src");
-	
-	return url;
-	
-}
+
+	public static String getImageUrl() throws Exception {
+		getCurrentFunctionName(true);
+		/*
+		 * List<String> subStrArr = new ArrayList<String>(); List<String> valuesArr =
+		 * new ArrayList<String>(); subStrArr.add(PDPSelectors.image);
+		 * valuesArr.add(""); SelectorUtil.initializeSelectorsAndDoActions(subStrArr,
+		 * valuesArr); getCurrentFunctionName(false); return
+		 * SelectorUtil.textValue.get();
+		 */
+		List<String> subStrArr = new ArrayList<String>();
+		subStrArr.add("pdp-main-image");
+		String url = SelectorUtil.getAttr(subStrArr, "src");
+
+		return url;
+
+	}
+
 	private static void clickAddToCartBtn() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -158,17 +163,19 @@ public static String getImageUrl() throws Exception {
 		getCurrentFunctionName(false);
 		return SelectorUtil.textValue.get();
 	}
-//diala izz
+
+	// diala izz
 	public static void selectAmount(String amount) throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
 		List<String> valuesArr = new ArrayList<String>();
-		logs.debug(MessageFormat.format(LoggingMsg.SELECTING_GC_AMOUNT, amount ));
-		subStrArr.add(PDPSelectors.GCAmount);
-        valuesArr.add(amount);
+		logs.debug(MessageFormat.format(LoggingMsg.SELECTING_GC_AMOUNT, amount));
+		subStrArr.add(PDPSelectors.qty);
+		valuesArr.add(amount);
 		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 		getCurrentFunctionName(false);
 	}
+
 	public static void writeEmail(String email) throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -178,6 +185,7 @@ public static String getImageUrl() throws Exception {
 		SelectorUtil.typeText(subStrArr, email);
 		getCurrentFunctionName(false);
 	}
+
 	public static void confirmEmail(String email) throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -187,6 +195,7 @@ public static String getImageUrl() throws Exception {
 		SelectorUtil.typeText(subStrArr, email);
 		getCurrentFunctionName(false);
 	}
+
 	public static void GCtoName(String name) throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -196,6 +205,7 @@ public static String getImageUrl() throws Exception {
 		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 		getCurrentFunctionName(false);
 	}
+
 	public static void GCfromName(String name) throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -205,6 +215,7 @@ public static String getImageUrl() throws Exception {
 		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 		getCurrentFunctionName(false);
 	}
+
 	public static void writeMessage(String message) throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -214,6 +225,7 @@ public static String getImageUrl() throws Exception {
 		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 		getCurrentFunctionName(false);
 	}
+
 	public static void VGCaddToBag() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -223,6 +235,7 @@ public static String getImageUrl() throws Exception {
 		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 		getCurrentFunctionName(false);
 	}
+
 	public static void TGCaddToBag() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -232,7 +245,9 @@ public static String getImageUrl() throws Exception {
 		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 		getCurrentFunctionName(false);
 	}
-	public static void addVGCToCart(String amount, String email, String confirmEmail,String ToName,String FromName, String message) throws Exception {
+
+	public static void addVGCToCart(String amount, String email, String confirmEmail, String ToName, String FromName,
+			String message) throws Exception {
 		getCurrentFunctionName(true);
 		selectAmount(amount);
 		writeEmail(email);
@@ -244,8 +259,11 @@ public static String getImageUrl() throws Exception {
 		getCurrentFunctionName(false);
 
 	}
+
 	
-	public static void addTGCToCart(String amount, String email, String ToName, String FromName, String message) throws Exception {
+	
+	public static void addTGCToCart(String amount, String email, String ToName, String FromName, String message)
+			throws Exception {
 		getCurrentFunctionName(true);
 		selectAmount(amount);
 		GCtoName(ToName);
@@ -257,6 +275,7 @@ public static String getImageUrl() throws Exception {
 
 	}
 	
+
 	public static String getSummary() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -300,7 +319,6 @@ public static String getImageUrl() throws Exception {
 		getCurrentFunctionName(false);
 		return numberOfFoundElements;
 	}
-	
 
 	public static void clickShowReviewsBtn() throws Exception {
 		getCurrentFunctionName(true);
@@ -311,7 +329,7 @@ public static String getImageUrl() throws Exception {
 		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 		getCurrentFunctionName(false);
 	}
-	
+
 	public static String getReviewEntry() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -322,7 +340,7 @@ public static String getImageUrl() throws Exception {
 		getCurrentFunctionName(false);
 		return SelectorUtil.textValue.get();
 	}
-	
+
 	public static String getCartPopupError() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -333,7 +351,7 @@ public static String getImageUrl() throws Exception {
 		getCurrentFunctionName(false);
 		return SelectorUtil.textValue.get();
 	}
-	
+
 	public static String getProductQtyInCartPopup() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -344,10 +362,10 @@ public static String getImageUrl() throws Exception {
 		getCurrentFunctionName(false);
 		return SelectorUtil.textValue.get();
 	}
-	
-    public static String getRatingCalc() throws Exception {
+
+	public static String getRatingCalc() throws Exception {
 		getCurrentFunctionName(true);
-		List<String> subStrArr = new ArrayList<String>();		
+		List<String> subStrArr = new ArrayList<String>();
 		logs.debug(MessageFormat.format(LoggingMsg.GET_ELEMENT_BY_LOCATOR, PDPSelectors.ratingValue));
 		subStrArr.add(PDPSelectors.ratingValue);
 		String dataRating = SelectorUtil.getAttr(subStrArr, "data-rating");
@@ -355,9 +373,9 @@ public static String getImageUrl() throws Exception {
 		getCurrentFunctionName(false);
 		return dataRating;
 	}
-    
-    public static String getActiveStars() throws Exception {
-    	getCurrentFunctionName(true);
+
+	public static String getActiveStars() throws Exception {
+		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
 		List<String> valuesArr = new ArrayList<String>();
 		subStrArr.add(PDPSelectors.activeStars);
@@ -367,8 +385,8 @@ public static String getImageUrl() throws Exception {
 		logs.debug(MessageFormat.format(LoggingMsg.NUMBER_OF_ACTIVE_STARS, numberOfFoundElements));
 		getCurrentFunctionName(false);
 		return numberOfFoundElements;
-    }
-    
+	}
+
 	public static String getSizeOptions() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -379,7 +397,7 @@ public static String getImageUrl() throws Exception {
 		getCurrentFunctionName(false);
 		return SelectorUtil.textValue.get();
 	}
-	
+
 	public static String getDisplayedSizeName() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -390,7 +408,7 @@ public static String getImageUrl() throws Exception {
 		getCurrentFunctionName(false);
 		return SelectorUtil.textValue.get();
 	}
-	
+
 	public static String getSelectedSizeName() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -401,8 +419,9 @@ public static String getImageUrl() throws Exception {
 		getCurrentFunctionName(false);
 		return SelectorUtil.textValue.get();
 	}
-    public static String getSizeOptionsCount() throws Exception {
-    	getCurrentFunctionName(true);
+
+	public static String getSizeOptionsCount() throws Exception {
+		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
 		List<String> valuesArr = new ArrayList<String>();
 		subStrArr.add(PDPSelectors.sizeOptions);
@@ -412,22 +431,22 @@ public static String getImageUrl() throws Exception {
 		logs.debug(MessageFormat.format(LoggingMsg.NUMBER_OF_ACTIVE_SIZES, numberOfFoundElements));
 		getCurrentFunctionName(false);
 		return numberOfFoundElements;
-    }
-    
+	}
+
 	public static String getSizeOptionByIndex(int index) throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
-		List<String> valuesArr = new ArrayList<String>();	
+		List<String> valuesArr = new ArrayList<String>();
 		logs.debug(MessageFormat.format(LoggingMsg.GET_ELEMENT_BY_LOCATOR, PDPSelectors.sizeOptions));
 		subStrArr.add(PDPSelectors.sizeOptions);
-		valuesArr.add("index,"+index);
+		valuesArr.add("index," + index);
 		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 		getCurrentFunctionName(false);
 		return SelectorUtil.textValue.get();
 	}
-    
-    public static String getVariantListCount() throws Exception {
-    	getCurrentFunctionName(true);
+
+	public static String getVariantListCount() throws Exception {
+		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
 		List<String> valuesArr = new ArrayList<String>();
 		subStrArr.add(PDPSelectors.variantList);
@@ -437,22 +456,22 @@ public static String getImageUrl() throws Exception {
 		logs.debug(MessageFormat.format(LoggingMsg.NUMBER_OF_ACTIVE_VARIANTS, numberOfFoundElements));
 		getCurrentFunctionName(false);
 		return numberOfFoundElements;
-    }
-    
+	}
+
 	public static String getVariantList(int index) throws Exception {
 		getCurrentFunctionName(true);
-		List<String> subStrArr = new ArrayList<String>();		
+		List<String> subStrArr = new ArrayList<String>();
 		logs.debug(MessageFormat.format(LoggingMsg.GET_ELEMENT_BY_LOCATOR, PDPSelectors.variantList));
 		subStrArr.add(PDPSelectors.variantList);
-		String variantName = SelectorUtil.getAttr(subStrArr, "title",index);
+		String variantName = SelectorUtil.getAttr(subStrArr, "title", index);
 		logs.debug("Variant name is: " + variantName);
 		getCurrentFunctionName(false);
 		return variantName;
 	}
-	
+
 	public static String getcurrentStyleValue() throws Exception {
 		getCurrentFunctionName(true);
-		List<String> subStrArr = new ArrayList<String>();		
+		List<String> subStrArr = new ArrayList<String>();
 		logs.debug(MessageFormat.format(LoggingMsg.GET_ELEMENT_BY_LOCATOR, PDPSelectors.currentStyleValue));
 		subStrArr.add(PDPSelectors.currentStyleValue);
 		String variantName = SelectorUtil.getAttr(subStrArr, "title");
@@ -460,7 +479,7 @@ public static String getImageUrl() throws Exception {
 		getCurrentFunctionName(false);
 		return variantName;
 	}
-	
+
 	public static String getVariantSelectedStyleName() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -472,7 +491,7 @@ public static String getImageUrl() throws Exception {
 		getCurrentFunctionName(false);
 		return SelectorUtil.textValue.get();
 	}
-	
+
 	public static String getColorOptions() throws Exception {
 		getCurrentFunctionName(true);
 		List<String> subStrArr = new ArrayList<String>();
@@ -483,15 +502,17 @@ public static String getImageUrl() throws Exception {
 		getCurrentFunctionName(false);
 		return SelectorUtil.textValue.get();
 	}
-	public static String getMiniImageUrl()  throws Exception{
+
+	public static String getMiniImageUrl() throws Exception {
 		// TODO Auto-generated method stub
 		List<String> subStrArr = new ArrayList<String>();
 		subStrArr.add(PDPSelectors.mini_image);
-		String url=SelectorUtil.getAttr(subStrArr, "src");
-		String mini_url=url.split("[?]")[1];
-		if(mini_url.equals("$main_minicart$"))
-		return url;
-		else return "";
-		
+		String url = SelectorUtil.getAttr(subStrArr, "src");
+		String mini_url = url.split("[?]")[1];
+		if (mini_url.equals("$main_minicart$"))
+			return url;
+		else
+			return "";
+
 	}
 }

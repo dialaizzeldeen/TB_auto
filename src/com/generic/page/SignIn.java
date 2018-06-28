@@ -14,6 +14,7 @@ public class SignIn extends SelTestCase {
 	public static void logIn(String userName, String Password) throws Exception {
 		getCurrentFunctionName(true);
 		fillLoginFormAndClickSubmit(userName,Password);
+		Thread.sleep(5000);
 		if(!checkUserAccount())
 		{
 			throw new Exception("Login failed");
@@ -36,6 +37,21 @@ public class SignIn extends SelTestCase {
 		subStrArr.add(SignInSelectors.loginBtn);
 		valuesArr.add("");
 		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		getCurrentFunctionName(false);
+
+	}
+	public static void clickLogOut() throws Exception {
+		getCurrentFunctionName(true);
+		List<String> subStrArr = new ArrayList<String>();
+		List<String> valuesArr = new ArrayList<String>();
+		subStrArr.add(SignInSelectors.signOut);
+		valuesArr.add("");
+		try {
+		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		}
+		catch (Exception e){
+			logs.debug("user already sign out ");
+		}
 		getCurrentFunctionName(false);
 
 	}

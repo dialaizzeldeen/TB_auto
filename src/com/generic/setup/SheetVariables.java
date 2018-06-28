@@ -59,7 +59,7 @@ public class SheetVariables {
 	public static final String HomePageSheet = "HomePageRegression";  
 	public static final String SearchSheet = "SearchRegression";
 	public static final String QuickShopSheet = "QuickShopRegression";
-	
+    public static final String GCcheckoutSheet = "GCCheckOutRegression";
 	//public static final String PopupSearchSheet = "PopupSearchRegrission";
 
 }

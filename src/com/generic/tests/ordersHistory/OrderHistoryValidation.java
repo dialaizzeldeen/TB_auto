@@ -26,7 +26,7 @@ import com.generic.setup.LoggingMsg;
 import com.generic.setup.PagesURLs;
 import com.generic.setup.SelTestCase;
 import com.generic.setup.SheetVariables;
-import com.generic.tests.checkout.Base_checkoutUS;
+import com.generic.tests.checkout.Base_checkoutUS_back;
 import com.generic.util.ReportUtil;
 import com.generic.util.SASLogger;
 import com.generic.util.dataProviderUtils;
@@ -90,7 +90,7 @@ public class OrderHistoryValidation extends SelTestCase {
 	
 		try {
 			
-			Base_checkoutUS checkoutTest = new Base_checkoutUS();
+			Base_checkoutUS_back checkoutTest = new Base_checkoutUS_back();
 			checkoutTest.initialSetUp(testObject);
 			checkoutTest.checkOutUSBaseTest(caseId, runTest, desc, proprties, products, shippingMethod, payment, shippingAddress, billingAddress, coupon, email);
 			String OCOrderId = CheckOut.orderConfirmation.getOrderId();

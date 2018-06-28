@@ -24,6 +24,7 @@ public class Registration extends SelTestCase {
 		public static final String state = "state";
 		public static final String country = "country";
 		public static final String postalCode = "postalCode";
+		
 	}
 
 	public static void loginToKioskAccount(String email) throws Exception {
